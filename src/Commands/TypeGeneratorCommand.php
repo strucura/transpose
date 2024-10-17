@@ -3,7 +3,6 @@
 namespace Workflowable\TypeGenerator\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Console\Prohibitable;
 use ReflectionClass;
 use ReflectionException;
 use Spatie\StructureDiscoverer\Discover;
@@ -13,8 +12,6 @@ use Workflowable\TypeGenerator\Contracts\WriterContract;
 
 class TypeGeneratorCommand extends Command
 {
-    use Prohibitable;
-
     /**
      * The name and signature of the console command.
      *
