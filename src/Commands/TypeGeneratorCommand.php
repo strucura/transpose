@@ -17,14 +17,14 @@ class TypeGeneratorCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'types:convert {writer}';
+    protected $signature = 'types:generate {writer}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generate type definitions for discovered classes into a language of your choice.';
 
     /**
      * Execute the console command.
