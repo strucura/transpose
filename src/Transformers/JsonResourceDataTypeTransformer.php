@@ -41,7 +41,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
         // Derive object properties from the model
         if (! empty($class->getAttributes(DeriveObjectPropertiesFromModel::class))) {
-            $this->deriveObjectPropertiesFromModel($class);
+            $this->deriveObjectPropertiesUsingModel($class);
         }
 
         // Apply manually defined object properties
@@ -66,7 +66,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
     /**
      * @throws ReflectionException
      */
-    public function deriveObjectPropertiesFromModel(ReflectionClass $class): void
+    public function deriveObjectPropertiesUsingModel(ReflectionClass $class): void
     {
         // Get the fully qualified class name of the model
         $modelFQCN = $class->getAttributes(DeriveObjectPropertiesFromModel::class)[0]->getArguments()[0];
