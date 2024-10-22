@@ -54,8 +54,10 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
     public function applyManuallyDefinedObjectProperties(ReflectionClass $class): void
     {
+        // Get the manually defined object properties
         $properties = $class->getAttributes(DefineObjectProperties::class)[0]->getArguments()[0];
 
+        // Add the properties to the object data
         foreach ($properties as $property) {
             $this->objectData->addProperty($property);
         }
