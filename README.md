@@ -81,8 +81,8 @@ use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
 use Workflowable\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
 
 #[DefineObjectProperties([
-    new PrimitiveObjectProperty('property1', PrimitiveObjectPropertyTypeEnum::STRING),
-    new PrimitiveObjectProperty('property2', PrimitiveObjectPropertyTypeEnum::INT),
+    new PrimitiveObjectProperty('property1', PrimitiveObjectPropertyTypeEnum::String),
+    new PrimitiveObjectProperty('property2', PrimitiveObjectPropertyTypeEnum::Integer),
 ])]
 class MyClass
 {
