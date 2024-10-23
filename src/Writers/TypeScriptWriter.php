@@ -14,8 +14,20 @@ use Workflowable\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
 use Workflowable\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
 use Workflowable\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
 
+/**
+ * Class TypeScriptWriter
+ *
+ * This class is responsible for converting data types into TypeScript definitions.
+ */
 class TypeScriptWriter implements WriterContract
 {
+    /**
+     * Write TypeScript definitions for a collection of data types.
+     *
+     * @param Collection $types
+     * @return string
+     * @throws Exception
+     */
     public function write(Collection $types): string
     {
         return $types->map(function ($type) {
@@ -29,6 +41,12 @@ class TypeScriptWriter implements WriterContract
         })->implode("\n");
     }
 
+    /**
+     * Write a TypeScript enum definition.
+     *
+     * @param BackedEnumDataType $enum
+     * @return string
+     */
     private function writeEnum(BackedEnumDataType $enum): string
     {
         $enumName = $enum->name;
@@ -44,6 +62,12 @@ class TypeScriptWriter implements WriterContract
         return $enumString;
     }
 
+    /**
+     * Write a TypeScript interface definition for an object.
+     *
+     * @param ObjectDataType $object
+     * @return string
+     */
     private function writeObject(ObjectDataType $object): string
     {
         $objectName = $object->name;
@@ -77,6 +101,12 @@ class TypeScriptWriter implements WriterContract
         return $objectString;
     }
 
+    /**
+     * Map an inline enum object property to a TypeScript type.
+     *
+     * @param InlineEnumObjectProperty $enumObjectProperty
+     * @return string
+     */
     public function mapInlineEnumToTypeScript(InlineEnumObjectProperty $enumObjectProperty): string
     {
         if (empty($enumObjectProperty->cases)) {
@@ -92,6 +122,12 @@ class TypeScriptWriter implements WriterContract
         })->implode(' | ');
     }
 
+    /**
+     * Map a primitive object property to a TypeScript type.
+     *
+     * @param PrimitiveObjectProperty $property
+     * @return string
+     */
     public function mapGenericObjectPropertyTypesToTypeScript(PrimitiveObjectProperty $property): string
     {
         return match ($property->primitive) {
