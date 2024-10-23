@@ -9,7 +9,7 @@ class ObjectDataType implements DataTypeContract
 {
     public string $name;
 
-    protected array $properties;
+    protected array $properties = [];
 
     public function addProperty(ObjectPropertyContract $property): void
     {

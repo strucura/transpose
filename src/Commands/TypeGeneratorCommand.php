@@ -54,7 +54,7 @@ class TypeGeneratorCommand extends Command
         $selectedWriter = $writers[$writerKey];
 
         foreach ($paths as $path) {
-            $discoverableItems = Discover::in($path)->any(config('type-generator.discovery.conditions'))->get();
+            $discoverableItems = Discover::in($path)->any(...config('type-generator.discovery.conditions'))->get();
 
             foreach ($discoverableItems as $discoverableItem) {
                 $reflectedDiscoveredItem = new ReflectionClass($discoverableItem);
