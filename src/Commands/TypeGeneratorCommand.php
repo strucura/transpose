@@ -33,7 +33,7 @@ class TypeGeneratorCommand extends Command
      */
     public function handle(): void
     {
-        $paths = config('type-converter.discovery.paths');
+        $paths = config('type-generator.discovery.paths');
 
         $types = collect();
 
