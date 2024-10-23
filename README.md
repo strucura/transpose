@@ -23,84 +23,50 @@ You can publish the config file with:
 php artisan vendor:publish --tag="type-generator-config"
 ```
 
-### Discovery
+### Registering Bundles
 
-In your configuration there is a section for discovery where you can identify paths where we will look for discovering classes that can be transformed, as well as a way of assigning conditions for assessing whether a class should be looked at. This is handled via a package by Spatie called [php-structure-discoverer](https://github.com/spatie/php-structure-discoverer).
+To register a bundle, you need to define it in the `type-generator.php` configuration file. A bundle consists of discovery paths, discovery conditions, transformers, and a writer.
+
+Example configuration:
+
+```php
+use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\StructureDiscoverer\Support\Conditions\ConditionBuilder;
+use Workflowable\TypeGenerator\Builders\BundleBuilder;
+use Workflowable\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
+use Workflowable\TypeGenerator\Transformers\JsonResourceDataTypeTransformer;
+use Workflowable\TypeGenerator\Writers\TypeScriptWriter;
+
+return [
+    'bundles' => [
+        'typescript' => BundleBuilder::make()
+            ->discoveryPaths([
+                app_path(''),
+            ])
+            ->discoveryConditions([
+                ConditionBuilder::create()->enums(),
+                ConditionBuilder::create()
+                    ->classes()
+                    ->extending(JsonResource::class),
+            ])
+            ->transformers([
+                BackedEnumDataTypeTransformer::class,
+                JsonResourceDataTypeTransformer::class,
+            ])
+            ->writer(TypeScriptWriter::class)
+            ->writeTo(base_path('resources/js/types.ts')),
+    ],
+];
+```
+
+For more information on discovery conditions, please refer to the [php-structure-discoverer](https://github.com/spatie/php-structure-discoverer) package.
 
 ## Transformers and Writers
 
 Transformers take concepts within your application like ENUMs and JsonResources and map them to a standardized set of data types. From there, a writer will be utilized to handle writing your language-specific conversion of those data types. There are several default writers and transformers included by default that will handle conversions of Laravel JSON Resources as well as Backed ENUMS to TypeScript. You can generate your types with:
 
 ```bash
-php artisan types:generate {writer} // php artisan types:generate typescript
-```
-
-You can register new writers and transformers by adding them to your `type-generator.php` configuration file.
-
-### Adding New Writers
-
-To add a new writer, implement the `WriterContract` interface:
-
-```php
-namespace Workflowable\TypeGenerator\Writers;
-
-use Workflowable\TypeGenerator\Contracts\WriterContract;
-use Illuminate\Support\Collection;
-
-class MyCustomWriter implements WriterContract
-{
-    public function write(Collection $types): string
-    {
-        // Implement your custom writing logic here
-    }
-}
-```
-
-Then, register your writer in the `type-generator.php` configuration file:
-
-```php
-return [
-    'writers' => [
-        'my_custom_writer' => [
-            'class' => \Workflowable\TypeGenerator\Writers\MyCustomWriter::class,
-            'output_path' => base_path('path/to/output/file'),
-        ],
-    ],
-];
-```
-
-### Adding New Transformers
-
-To add a new transformer, implement the `DataTypeTransformerContract` interface:
-
-```php
-namespace Workflowable\TypeGenerator\Transformers;
-
-use Workflowable\TypeGenerator\Contracts\DataTypeTransformerContract;
-use ReflectionClass;
-
-class MyCustomTransformer implements DataTypeTransformerContract
-{
-    public function canTransform(ReflectionClass $class): bool
-    {
-        // Implement your logic to determine if the class can be transformed
-    }
-
-    public function transform(ReflectionClass $class): DataTypeContract
-    {
-        // Implement your transformation logic here
-    }
-}
-```
-
-Then, register your transformer in the `type-generator.php` configuration file:
-
-```php
-return [
-    'transformers' => [
-        \Workflowable\TypeGenerator\Transformers\MyCustomTransformer::class,
-    ],
-];
+php artisan types:generate {bundle} // php artisan types:generate typescript
 ```
 
 ## Attributes
