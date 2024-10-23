@@ -13,7 +13,7 @@ class BackedEnumDataTypeTransformer implements DataTypeTransformerContract
     /**
      * Determines if the given class can be transformed.
      *
-     * @param ReflectionClass $class The class to check.
+     * @param  ReflectionClass  $class  The class to check.
      * @return bool True if the class is an enum, false otherwise.
      */
     public function canTransform(ReflectionClass $class): bool
@@ -24,7 +24,7 @@ class BackedEnumDataTypeTransformer implements DataTypeTransformerContract
     /**
      * Transforms the given enum class into a BackedEnumDataType.
      *
-     * @param ReflectionClass $class The enum class to transform.
+     * @param  ReflectionClass  $class  The enum class to transform.
      * @return BackedEnumDataType The transformed data type.
      */
     public function transform(ReflectionClass $class): BackedEnumDataType
@@ -38,7 +38,7 @@ class BackedEnumDataTypeTransformer implements DataTypeTransformerContract
     /**
      * Transforms the enum cases of the given class.
      *
-     * @param ReflectionClass $class The enum class.
+     * @param  ReflectionClass  $class  The enum class.
      * @return array The transformed enum cases.
      */
     private function transformEnumCases(ReflectionClass $class): array

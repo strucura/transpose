@@ -8,17 +8,18 @@ use Illuminate\Support\Str;
 use ReflectionMethod;
 use Workflowable\TypeGenerator\Abstracts\AbstractObjectProperty;
 use Workflowable\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
-use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
 use Workflowable\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
+use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
 
 trait ConvertsTableDefinitionToObjectProperties
 {
     /**
      * Derives the type of an object property using the database schema.
      *
-     * @param string $objectPropertyName The name of the object property.
-     * @param string $modelFQCN The fully qualified class name of the model.
+     * @param  string  $objectPropertyName  The name of the object property.
+     * @param  string  $modelFQCN  The fully qualified class name of the model.
      * @return AbstractObjectProperty The derived object property.
+     *
      * @throws \ReflectionException
      * @throws Exception
      */
@@ -37,21 +38,23 @@ trait ConvertsTableDefinitionToObjectProperties
     /**
      * Retrieves the table name from the model.
      *
-     * @param string $modelFQCN The fully qualified class name of the model.
+     * @param  string  $modelFQCN  The fully qualified class name of the model.
      * @return string The table name.
+     *
      * @throws \ReflectionException
      */
     private function getTableName(string $modelFQCN): string
     {
         $getTable = new ReflectionMethod($modelFQCN, 'getTable');
+
         return $getTable->invoke(new $modelFQCN);
     }
 
     /**
      * Retrieves the column schema from the database.
      *
-     * @param string $table The table name.
-     * @param string $objectPropertyName The name of the object property.
+     * @param  string  $table  The table name.
+     * @param  string  $objectPropertyName  The name of the object property.
      * @return array|null The column schema.
      */
     private function getColumnSchema(string $table, string $objectPropertyName): ?array
@@ -62,8 +65,8 @@ trait ConvertsTableDefinitionToObjectProperties
     /**
      * Creates an object property based on the column schema.
      *
-     * @param array $columnSchema The column schema.
-     * @param string $objectPropertyName The name of the object property.
+     * @param  array  $columnSchema  The column schema.
+     * @param  string  $objectPropertyName  The name of the object property.
      * @return AbstractObjectProperty The created object property.
      */
     private function createObjectProperty(array $columnSchema, string $objectPropertyName): AbstractObjectProperty
@@ -78,8 +81,8 @@ trait ConvertsTableDefinitionToObjectProperties
     /**
      * Handles the conversion of an enum column to an InlineEnumObjectProperty.
      *
-     * @param array $column The column schema.
-     * @param string $objectPropertyName The name of the object property.
+     * @param  array  $column  The column schema.
+     * @param  string  $objectPropertyName  The name of the object property.
      * @return InlineEnumObjectProperty The created InlineEnumObjectProperty.
      */
     private function handleEnumColumn(array $column, string $objectPropertyName): InlineEnumObjectProperty
@@ -88,7 +91,7 @@ trait ConvertsTableDefinitionToObjectProperties
             ->after('enum(')
             ->before(')')
             ->explode("','")
-            ->map(fn($case) => is_numeric($case = Str::of($case)->trim("'")->toString()) ? $case + 0 : $case)
+            ->map(fn ($case) => is_numeric($case = Str::of($case)->trim("'")->toString()) ? $case + 0 : $case)
             ->toArray();
 
         return new InlineEnumObjectProperty($objectPropertyName, $cases);
@@ -97,8 +100,8 @@ trait ConvertsTableDefinitionToObjectProperties
     /**
      * Handles the conversion of a tinyint(1) column to a PrimitiveObjectProperty with a boolean type.
      *
-     * @param array $column The column schema.
-     * @param string $objectPropertyName The name of the object property.
+     * @param  array  $column  The column schema.
+     * @param  string  $objectPropertyName  The name of the object property.
      * @return PrimitiveObjectProperty The created PrimitiveObjectProperty.
      */
     private function handleBooleanColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty
@@ -113,8 +116,8 @@ trait ConvertsTableDefinitionToObjectProperties
     /**
      * Handles the conversion of a generic column to a PrimitiveObjectProperty.
      *
-     * @param array $column The column schema.
-     * @param string $objectPropertyName The name of the object property.
+     * @param  array  $column  The column schema.
+     * @param  string  $objectPropertyName  The name of the object property.
      * @return PrimitiveObjectProperty The created PrimitiveObjectProperty.
      */
     private function handleGenericColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty

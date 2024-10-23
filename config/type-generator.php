@@ -17,7 +17,7 @@ return [
         'conditions' => [
             ConditionBuilder::create()->classes(),
             ConditionBuilder::create()->enums(),
-        ]
+        ],
     ],
 
     /**

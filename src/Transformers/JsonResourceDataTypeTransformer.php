@@ -31,9 +31,6 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
     /**
      * Determines if the given class can be transformed by this transformer.
-     *
-     * @param ReflectionClass $class
-     * @return bool
      */
     public function canTransform(ReflectionClass $class): bool
     {
@@ -43,8 +40,6 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
     /**
      * Transforms the given class into an ObjectDataType instance.
      *
-     * @param ReflectionClass $class
-     * @return ObjectDataType
      * @throws ReflectionException
      */
     public function transform(ReflectionClass $class): ObjectDataType
@@ -52,12 +47,12 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
         $this->setObjectName($class);
 
         // Derive object properties from the model if the attribute is present.
-        if (!empty($class->getAttributes(DeriveObjectPropertiesFromModel::class))) {
+        if (! empty($class->getAttributes(DeriveObjectPropertiesFromModel::class))) {
             $this->derivePropertiesFromModel($class);
         }
 
         // Apply manually defined object properties if the attribute is present.
-        if (!empty($class->getAttributes(DefineObjectProperties::class))) {
+        if (! empty($class->getAttributes(DefineObjectProperties::class))) {
             $this->applyDefinedProperties($class);
         }
 
@@ -66,8 +61,6 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
     /**
      * Sets the name of the object data type.
-     *
-     * @param ReflectionClass $class
      */
     protected function setObjectName(ReflectionClass $class): void
     {
@@ -77,7 +70,6 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
     /**
      * Derives object properties from the model.
      *
-     * @param ReflectionClass $class
      * @throws ReflectionException
      */
     protected function derivePropertiesFromModel(ReflectionClass $class): void
@@ -107,8 +99,6 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
     /**
      * Applies manually defined object properties.
-     *
-     * @param ReflectionClass $class
      */
     protected function applyDefinedProperties(ReflectionClass $class): void
     {

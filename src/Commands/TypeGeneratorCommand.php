@@ -18,6 +18,7 @@ use Workflowable\TypeGenerator\Contracts\WriterContract;
 class TypeGeneratorCommand extends Command
 {
     protected $signature = 'types:generate {writer}';
+
     protected $description = 'Generate type definitions for discovered classes into a language of your choice.';
 
     /**
@@ -32,8 +33,9 @@ class TypeGeneratorCommand extends Command
         $writers = config('type-generator.writers');
         $writerKey = $this->getWriterKey($writers);
 
-        if (!isset($writers[$writerKey])) {
+        if (! isset($writers[$writerKey])) {
             $this->error('Invalid writer selected');
+
             return;
         }
 
@@ -59,9 +61,6 @@ class TypeGeneratorCommand extends Command
 
     /**
      * Get the writer key from the command argument or prompt the user to select one.
-     *
-     * @param array $writers
-     * @return string
      */
     private function getWriterKey(array $writers): string
     {
@@ -72,9 +71,6 @@ class TypeGeneratorCommand extends Command
 
     /**
      * Discover items in the specified path based on the configured conditions.
-     *
-     * @param string $path
-     * @return array
      */
     private function discoverItems(string $path): array
     {
@@ -83,9 +79,6 @@ class TypeGeneratorCommand extends Command
 
     /**
      * Write the types to the specified writer.
-     *
-     * @param Collection $types
-     * @param array $selectedWriter
      */
     private function writeTypes(Collection $types, array $selectedWriter): void
     {
@@ -96,9 +89,6 @@ class TypeGeneratorCommand extends Command
 
     /**
      * Identify the appropriate transformer for the given class.
-     *
-     * @param ReflectionClass $class
-     * @return DataTypeTransformerContract|null
      */
     public function identifyTransformerForClass(ReflectionClass $class): ?DataTypeTransformerContract
     {
