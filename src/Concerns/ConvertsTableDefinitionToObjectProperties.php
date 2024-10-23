@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use ReflectionMethod;
 use Workflowable\TypeGenerator\Abstracts\AbstractObjectProperty;
-use Workflowable\TypeGenerator\Enums\GenericObjectPropertyTypeEnum;
-use Workflowable\TypeGenerator\ObjectProperties\GenericObjectProperty;
+use Workflowable\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
+use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
 use Workflowable\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
 
 trait ConvertsTableDefinitionToObjectProperties
@@ -36,12 +36,12 @@ trait ConvertsTableDefinitionToObjectProperties
             $columnSchema['type_name'] === 'enum' => $this->handleEnumColumn($columnSchema, $objectPropertyName),
 
             /**
-             * If the column is a tinyint(1), we need to create a GenericObjectProperty with a boolean type
+             * If the column is a tinyint(1), we need to create a PrimitiveObjectProperty with a boolean type
              */
             $columnSchema['type'] === 'tinyint(1)' => $this->handleBooleanColumn($columnSchema, $objectPropertyName),
 
             /**
-             * Otherwise, we can create a GenericObjectProperty with the type derived from the database column type
+             * Otherwise, we can create a PrimitiveObjectProperty with the type derived from the database column type
              */
             default => $this->handleGenericColumn($columnSchema, $objectPropertyName),
         };
@@ -76,25 +76,25 @@ trait ConvertsTableDefinitionToObjectProperties
     }
 
     /**
-     * Handles the conversion of a tinyint(1) column to a GenericObjectProperty with a boolean type
+     * Handles the conversion of a tinyint(1) column to a PrimitiveObjectProperty with a boolean type
      */
-    public function handleBooleanColumn(array $column, string $objectPropertyName): GenericObjectProperty
+    public function handleBooleanColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty
     {
-        return new GenericObjectProperty(
+        return new PrimitiveObjectProperty(
             $objectPropertyName,
-            GenericObjectPropertyTypeEnum::tryFromDatabaseColumnType('boolean'),
+            PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('boolean'),
             $column['nullable']
         );
     }
 
     /**
-     * Handles the conversion of a generic column to a GenericObjectProperty
+     * Handles the conversion of a generic column to a PrimitiveObjectProperty
      */
-    public function handleGenericColumn(array $column, string $objectPropertyName): GenericObjectProperty
+    public function handleGenericColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty
     {
-        return new GenericObjectProperty(
+        return new PrimitiveObjectProperty(
             $objectPropertyName,
-            GenericObjectPropertyTypeEnum::tryFromDatabaseColumnType($column['type_name']),
+            PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType($column['type_name']),
             $column['nullable']
         );
     }

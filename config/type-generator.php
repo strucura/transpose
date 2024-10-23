@@ -1,7 +1,9 @@
 <?php
 
 // config for Workflowable/TypeGenerator
+use Spatie\StructureDiscoverer\Support\Conditions\ConditionBuilder;
 use Workflowable\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
+use Workflowable\TypeGenerator\Transformers\JsonResourceDataTypeTransformer;
 use Workflowable\TypeGenerator\Writers\TypeScriptWriter;
 
 return [
@@ -9,7 +11,13 @@ return [
      * The paths to search for classes to generate types for.
      */
     'discovery' => [
-        app_path(''),
+        'paths' => [
+            app_path(''),
+        ],
+        'conditions' => [
+            ConditionBuilder::create()->classes(),
+            ConditionBuilder::create()->enums(),
+        ]
     ],
 
     /**
@@ -17,6 +25,7 @@ return [
      */
     'transformers' => [
         BackedEnumDataTypeTransformer::class,
+        JsonResourceDataTypeTransformer::class,
     ],
 
     /**

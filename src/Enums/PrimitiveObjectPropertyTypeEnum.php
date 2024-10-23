@@ -2,7 +2,7 @@
 
 namespace Workflowable\TypeGenerator\Enums;
 
-enum GenericObjectPropertyTypeEnum: string
+enum PrimitiveObjectPropertyTypeEnum: string
 {
     case Integer = 'integer';
     case Boolean = 'boolean';
@@ -21,7 +21,7 @@ enum GenericObjectPropertyTypeEnum: string
     case Polygon = 'polygon';
     case Any = 'any';
 
-    public static function tryFromDatabaseColumnType(string $columnType): GenericObjectPropertyTypeEnum
+    public static function tryFromDatabaseColumnType(string $columnType): PrimitiveObjectPropertyTypeEnum
     {
         return match ($columnType) {
             'bigint', 'integer', 'mediumint', 'smallint', 'tinyint', 'year' => self::Integer,

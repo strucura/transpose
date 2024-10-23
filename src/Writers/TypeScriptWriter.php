@@ -8,8 +8,8 @@ use Workflowable\TypeGenerator\Abstracts\AbstractObjectProperty;
 use Workflowable\TypeGenerator\Contracts\WriterContract;
 use Workflowable\TypeGenerator\DataTypes\BackedEnumDataType;
 use Workflowable\TypeGenerator\DataTypes\ObjectDataType;
-use Workflowable\TypeGenerator\Enums\GenericObjectPropertyTypeEnum;
-use Workflowable\TypeGenerator\ObjectProperties\GenericObjectProperty;
+use Workflowable\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
+use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
 use Workflowable\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
 use Workflowable\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
 use Workflowable\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
@@ -54,7 +54,7 @@ class TypeScriptWriter implements WriterContract
         $mappedProperties = collect($properties)->mapWithKeys(function (AbstractObjectProperty $objectProperty) {
 
             $typeScriptType = match (true) {
-                $objectProperty instanceof GenericObjectProperty => $this->mapGenericObjectPropertyTypesToTypeScript($objectProperty),
+                $objectProperty instanceof PrimitiveObjectProperty => $this->mapGenericObjectPropertyTypesToTypeScript($objectProperty),
                 $objectProperty instanceof InlineEnumObjectProperty => $this->mapInlineEnumToTypeScript($objectProperty),
                 $objectProperty instanceof ReferenceObjectProperty => $objectProperty->reference,
                 $objectProperty instanceof ReferenceArrayObjectProperty => $objectProperty->reference.'[]',
@@ -92,26 +92,26 @@ class TypeScriptWriter implements WriterContract
         })->implode(' | ');
     }
 
-    public function mapGenericObjectPropertyTypesToTypeScript(GenericObjectProperty $property): string
+    public function mapGenericObjectPropertyTypesToTypeScript(PrimitiveObjectProperty $property): string
     {
-        return match ($property->type) {
+        return match ($property->primitive) {
             // Number Types
-            GenericObjectPropertyTypeEnum::Integer,
-            GenericObjectPropertyTypeEnum::Float => 'number',
+            PrimitiveObjectPropertyTypeEnum::Integer,
+            PrimitiveObjectPropertyTypeEnum::Float => 'number',
 
             // Boolean Types
-            GenericObjectPropertyTypeEnum::Boolean => 'boolean',
+            PrimitiveObjectPropertyTypeEnum::Boolean => 'boolean',
 
             // Date Types
-            GenericObjectPropertyTypeEnum::DateTime,
-            GenericObjectPropertyTypeEnum::Date => 'Date',
+            PrimitiveObjectPropertyTypeEnum::DateTime,
+            PrimitiveObjectPropertyTypeEnum::Date => 'Date',
 
             // String Types
-            GenericObjectPropertyTypeEnum::String,
-            GenericObjectPropertyTypeEnum::Time => 'string',
+            PrimitiveObjectPropertyTypeEnum::String,
+            PrimitiveObjectPropertyTypeEnum::Time => 'string',
 
             // Geometry Types
-            GenericObjectPropertyTypeEnum::Point => '{ latitude: number, longitude: number }',
+            PrimitiveObjectPropertyTypeEnum::Point => '{ latitude: number, longitude: number }',
             default => 'any',
         };
     }

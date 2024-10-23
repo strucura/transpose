@@ -33,7 +33,7 @@ class TypeGeneratorCommand extends Command
      */
     public function handle(): void
     {
-        $paths = config('type-converter.discovery');
+        $paths = config('type-converter.discovery.paths');
 
         $types = collect();
 
@@ -54,16 +54,9 @@ class TypeGeneratorCommand extends Command
         $selectedWriter = $writers[$writerKey];
 
         foreach ($paths as $path) {
-            $discoverableItems = Discover::in($path)->any(
-                ConditionBuilder::create()->classes(),
-                ConditionBuilder::create()->enums(),
-            )->get();
+            $discoverableItems = Discover::in($path)->any(config('type-converter.discovery.conditions'))->get();
 
             foreach ($discoverableItems as $discoverableItem) {
-                if (in_array($discoverableItem, config('type-converter.excluded_discovery_items'))) {
-                    continue;
-                }
-
                 $reflectedDiscoveredItem = new ReflectionClass($discoverableItem);
 
                 $transformer = $this->identifyTransformerForClass($reflectedDiscoveredItem);

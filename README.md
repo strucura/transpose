@@ -5,7 +5,8 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/workflowable/type-generator/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/workflowable/type-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/workflowable/type-generator.svg?style=flat-square)](https://packagist.org/packages/workflowable/type-generator)
 
-Handles the conversion of data structures to TypeScript, with the ability to incorporate other languages.
+Type Generator is a package designed to streamline the creation of types for your Laravel application across 
+different languages by introducing standardized data types, which can then be consumed by a writer of your choice.
 
 ## Installation
 
@@ -15,17 +16,32 @@ You can install the package via composer:
 composer require workflowable/type-generator
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan types:generate typescript
-```
+## Configuration:
 
 You can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="type-generator-config"
 ```
+
+### Discovery
+
+In your configuration there is a section for discovery where you can identify paths where we will look for discovering
+classes that can be transformed, as well as a way of assigning conditions for assessing whether a class should
+be looked at.  This is handled via a package by Spatie called [php-structure-discoverer](https://github.com/spatie/php-structure-discoverer)
+
+## Transformers and Writers
+
+Transformers take concepts within your application like ENUMs and JsonResources and map it to a standardized set of
+data types.  From there, a writer will be utilized to handle writing your language specific conversion of those data
+types.  There are several default writers and transformers that are included by default that will handle conversions of
+Laravel JSON Resources as well as Backed ENUMS to TypeScript.  You can generate your types with:
+
+```bash
+php artisan types:generate {writer} // php artisan types:generate typescript
+```
+
+You can register new writers and transformers by adding them to your `type-generator.php` configuration file.
 
 ## Changelog
 
