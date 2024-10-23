@@ -37,7 +37,7 @@ class TypeGeneratorCommand extends Command
 
         $types = collect();
 
-        $writers = config('type-converter.writers');
+        $writers = config('type-generator.writers');
 
         if (empty($this->argument('writer'))) {
             $writerKey = $this->choice('Select writer', array_keys($writers), 0);
@@ -54,7 +54,7 @@ class TypeGeneratorCommand extends Command
         $selectedWriter = $writers[$writerKey];
 
         foreach ($paths as $path) {
-            $discoverableItems = Discover::in($path)->any(config('type-converter.discovery.conditions'))->get();
+            $discoverableItems = Discover::in($path)->any(config('type-generator.discovery.conditions'))->get();
 
             foreach ($discoverableItems as $discoverableItem) {
                 $reflectedDiscoveredItem = new ReflectionClass($discoverableItem);
@@ -76,7 +76,7 @@ class TypeGeneratorCommand extends Command
 
     public function identifyTransformerForClass(ReflectionClass $class): ?DataTypeTransformerContract
     {
-        $transformers = config('type-converter.transformers');
+        $transformers = config('type-generator.transformers');
 
         foreach ($transformers as $transformer) {
             $transformer = new $transformer;
