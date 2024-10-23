@@ -14,71 +14,94 @@ use Workflowable\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
 trait ConvertsTableDefinitionToObjectProperties
 {
     /**
+     * Derives the type of an object property using the database schema.
+     *
+     * @param string $objectPropertyName The name of the object property.
+     * @param string $modelFQCN The fully qualified class name of the model.
+     * @return AbstractObjectProperty The derived object property.
      * @throws \ReflectionException
      * @throws Exception
      */
     public function deriveTypeUsingDatabase(string $objectPropertyName, string $modelFQCN): AbstractObjectProperty
     {
-        // Grab the table name from the model
-        $getTable = new ReflectionMethod($modelFQCN, 'getTable');
-        $table = $getTable->invoke(new $modelFQCN);
-
-        $columnSchema = collect(Schema::getColumns($table))->firstWhere('name', '=', $objectPropertyName);
+        $table = $this->getTableName($modelFQCN);
+        $columnSchema = $this->getColumnSchema($table, $objectPropertyName);
 
         if (empty($columnSchema)) {
             throw new Exception("Column $objectPropertyName not found in table $table");
         }
 
+        return $this->createObjectProperty($columnSchema, $objectPropertyName);
+    }
+
+    /**
+     * Retrieves the table name from the model.
+     *
+     * @param string $modelFQCN The fully qualified class name of the model.
+     * @return string The table name.
+     * @throws \ReflectionException
+     */
+    private function getTableName(string $modelFQCN): string
+    {
+        $getTable = new ReflectionMethod($modelFQCN, 'getTable');
+        return $getTable->invoke(new $modelFQCN);
+    }
+
+    /**
+     * Retrieves the column schema from the database.
+     *
+     * @param string $table The table name.
+     * @param string $objectPropertyName The name of the object property.
+     * @return array|null The column schema.
+     */
+    private function getColumnSchema(string $table, string $objectPropertyName): ?array
+    {
+        return collect(Schema::getColumns($table))->firstWhere('name', '=', $objectPropertyName);
+    }
+
+    /**
+     * Creates an object property based on the column schema.
+     *
+     * @param array $columnSchema The column schema.
+     * @param string $objectPropertyName The name of the object property.
+     * @return AbstractObjectProperty The created object property.
+     */
+    private function createObjectProperty(array $columnSchema, string $objectPropertyName): AbstractObjectProperty
+    {
         return match (true) {
-            /**
-             * If the column is an enum, we need to create an InlineEnumObjectProperty
-             */
             $columnSchema['type_name'] === 'enum' => $this->handleEnumColumn($columnSchema, $objectPropertyName),
-
-            /**
-             * If the column is a tinyint(1), we need to create a PrimitiveObjectProperty with a boolean type
-             */
             $columnSchema['type'] === 'tinyint(1)' => $this->handleBooleanColumn($columnSchema, $objectPropertyName),
-
-            /**
-             * Otherwise, we can create a PrimitiveObjectProperty with the type derived from the database column type
-             */
             default => $this->handleGenericColumn($columnSchema, $objectPropertyName),
         };
     }
 
     /**
-     * Handles the conversion of an enum column to an InlineEnumObjectProperty
+     * Handles the conversion of an enum column to an InlineEnumObjectProperty.
+     *
+     * @param array $column The column schema.
+     * @param string $objectPropertyName The name of the object property.
+     * @return InlineEnumObjectProperty The created InlineEnumObjectProperty.
      */
-    public function handleEnumColumn(array $column, string $objectPropertyName): InlineEnumObjectProperty
+    private function handleEnumColumn(array $column, string $objectPropertyName): InlineEnumObjectProperty
     {
-        // Extract the cases from the column type
         $cases = Str::of($column['type'])
             ->after('enum(')
             ->before(')')
             ->explode("','")
-            ->map(function ($case) {
-                // Trim the quotes from the case
-                $enumValue = Str::of($case)->trim("'")->toString();
-
-                /**
-                 * If the enum value is numeric, cast it to a number.
-                 */
-                if (is_numeric($enumValue)) {
-                    // Adding 0 allows us to maintain the type as a float or int
-                    $enumValue = $enumValue + 0;
-                }
-
-                return $enumValue;
-            })->toArray();
+            ->map(fn($case) => is_numeric($case = Str::of($case)->trim("'")->toString()) ? $case + 0 : $case)
+            ->toArray();
 
         return new InlineEnumObjectProperty($objectPropertyName, $cases);
     }
 
     /**
-     * Handles the conversion of a tinyint(1) column to a PrimitiveObjectProperty with a boolean type
+     * Handles the conversion of a tinyint(1) column to a PrimitiveObjectProperty with a boolean type.
+     *
+     * @param array $column The column schema.
+     * @param string $objectPropertyName The name of the object property.
+     * @return PrimitiveObjectProperty The created PrimitiveObjectProperty.
      */
-    public function handleBooleanColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty
+    private function handleBooleanColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty
     {
         return new PrimitiveObjectProperty(
             $objectPropertyName,
@@ -88,9 +111,13 @@ trait ConvertsTableDefinitionToObjectProperties
     }
 
     /**
-     * Handles the conversion of a generic column to a PrimitiveObjectProperty
+     * Handles the conversion of a generic column to a PrimitiveObjectProperty.
+     *
+     * @param array $column The column schema.
+     * @param string $objectPropertyName The name of the object property.
+     * @return PrimitiveObjectProperty The created PrimitiveObjectProperty.
      */
-    public function handleGenericColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty
+    private function handleGenericColumn(array $column, string $objectPropertyName): PrimitiveObjectProperty
     {
         return new PrimitiveObjectProperty(
             $objectPropertyName,
