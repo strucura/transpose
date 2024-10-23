@@ -10,17 +10,39 @@ use Workflowable\TypeGenerator\DataTypes\BackedEnumDataType;
 
 class BackedEnumDataTypeTransformer implements DataTypeTransformerContract
 {
+    /**
+     * Determines if the given class can be transformed.
+     *
+     * @param ReflectionClass $class The class to check.
+     * @return bool True if the class is an enum, false otherwise.
+     */
     public function canTransform(ReflectionClass $class): bool
     {
         return $class->isEnum();
     }
 
+    /**
+     * Transforms the given enum class into a BackedEnumDataType.
+     *
+     * @param ReflectionClass $class The enum class to transform.
+     * @return BackedEnumDataType The transformed data type.
+     */
     public function transform(ReflectionClass $class): BackedEnumDataType
     {
-        $typeScriptEnum = new BackedEnumDataType;
+        return new BackedEnumDataType(
+            $class->getShortName(),
+            $this->transformEnumCases($class)
+        );
+    }
 
-        $typeScriptEnum->name = $class->getShortName();
-
+    /**
+     * Transforms the enum cases of the given class.
+     *
+     * @param ReflectionClass $class The enum class.
+     * @return array The transformed enum cases.
+     */
+    private function transformEnumCases(ReflectionClass $class): array
+    {
         $cases = [];
         foreach ($class->getConstants() as $name => $enumCaseValue) {
             if ($enumCaseValue instanceof BackedEnum) {
@@ -29,8 +51,6 @@ class BackedEnumDataTypeTransformer implements DataTypeTransformerContract
             $cases[Str::of($name)->upper()->toString()] = $enumCaseValue;
         }
 
-        $typeScriptEnum->cases = $cases;
-
-        return $typeScriptEnum;
+        return $cases;
     }
 }
