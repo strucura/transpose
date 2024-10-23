@@ -1,8 +1,8 @@
 # Type Generator
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/workflowable/type-generator.svg?style=flat-square)](https://packagist.org/packages/workflowable/type-generator)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/workflowable/type-generator/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/workflowable/type-generator/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/workflowable/type-generator/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/workflowable/type-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/workflowable/type-generator/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/workflowable/type-generator/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/workflowable/type-generator/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/workflowable/type-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/workflowable/type-generator.svg?style=flat-square)](https://packagist.org/packages/workflowable/type-generator)
 
 Type Generator is a package designed to streamline the creation of types for your Laravel application across different languages by introducing standardized data types, which can then be consumed by a writer of your choice.
