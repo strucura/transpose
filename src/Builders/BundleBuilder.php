@@ -1,0 +1,79 @@
+<?php
+
+namespace Workflowable\TypeGenerator\Builders;
+
+use Spatie\StructureDiscoverer\DiscoverConditions\DiscoverCondition;
+use Workflowable\TypeGenerator\Contracts\DataTypeTransformerContract;
+use Workflowable\TypeGenerator\Contracts\WriterContract;
+
+final class BundleBuilder
+{
+    /**
+     * The paths to search for classes to generate types for.
+     */
+    public array $paths = [];
+
+    /**
+     * The conditions to use when discovering classes.
+     *
+     * @var array<DiscoverCondition>
+     */
+    public array $conditions = [];
+
+    /**
+     * The transformers to use when generating the types.
+     *
+     * @var array<DataTypeTransformerContract>
+     */
+    public array $transformers = [];
+
+    /**
+     * The writer to use when generating the types.
+     */
+    public WriterContract $writer;
+
+    /**
+     * The path to write the generated types to.
+     */
+    public string $writeTo;
+
+    public static function make(): BundleBuilder
+    {
+        return new BundleBuilder;
+    }
+
+    public function discoveryPaths(array $paths): self
+    {
+        $this->paths = $paths;
+
+        return $this;
+    }
+
+    public function discoveryConditions(array $conditions): self
+    {
+        $this->conditions = $conditions;
+
+        return $this;
+    }
+
+    public function transformers(array $transformers): self
+    {
+        $this->transformers = $transformers;
+
+        return $this;
+    }
+
+    public function writer(string $writer): self
+    {
+        $this->writer = new $writer;
+
+        return $this;
+    }
+
+    public function writeTo(string $path): self
+    {
+        $this->writeTo = $path;
+
+        return $this;
+    }
+}

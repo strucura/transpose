@@ -7,95 +7,108 @@ use Illuminate\Support\Collection;
 use ReflectionClass;
 use ReflectionException;
 use Spatie\StructureDiscoverer\Discover;
+use Workflowable\TypeGenerator\Builders\BundleBuilder;
 use Workflowable\TypeGenerator\Contracts\DataTypeTransformerContract;
-use Workflowable\TypeGenerator\Contracts\WriterContract;
 
 /**
- * Class TypeGeneratorCommand
- *
- * This command generates type definitions for discovered classes into a specified language.
+ * Command to generate type definitions for discovered classes into a language of choice.
  */
 class TypeGeneratorCommand extends Command
 {
-    protected $signature = 'types:generate {writer}';
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'types:generate {bundle}';
 
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Generate type definitions for discovered classes into a language of your choice.';
 
     /**
-     * Handle the command execution.
+     * Execute the console command.
      *
      * @throws ReflectionException
      */
     public function handle(): void
     {
-        $paths = config('type-generator.discovery.paths');
-        $types = collect();
-        $writers = config('type-generator.writers');
-        $writerKey = $this->getWriterKey($writers);
+        $bundles = config('type-generator.bundles');
+        $bundleKey = $this->getBundleKey($bundles);
 
-        if (! isset($writers[$writerKey])) {
-            $this->error('Invalid writer selected');
+        if (! $this->isValidBundle($bundles, $bundleKey)) {
+            $this->error('Invalid bundle selected');
 
             return;
         }
 
-        $selectedWriter = $writers[$writerKey];
+        $selectedBundle = $bundles[$bundleKey];
+        $types = $this->discoverAndTransformTypes($selectedBundle);
+        $this->writeTypes($types, $selectedBundle);
+    }
 
-        foreach ($paths as $path) {
-            $discoverableItems = $this->discoverItems($path);
+    /**
+     * Get the key of the selected bundle.
+     */
+    private function getBundleKey(array $bundles): string
+    {
+        return empty($this->argument('bundle'))
+            ? $this->choice('Select bundles', array_keys($bundles), 0)
+            : $this->argument('bundle');
+    }
+
+    /**
+     * Check if the selected bundle is valid.
+     */
+    private function isValidBundle(array $bundleBuilders, string $bundleKey): bool
+    {
+        return isset($bundleBuilders[$bundleKey]);
+    }
+
+    /**
+     * Discover and transform types based on the bundle configuration.
+     *
+     * @throws ReflectionException
+     */
+    private function discoverAndTransformTypes(BundleBuilder $bundleBuilder): Collection
+    {
+        $types = collect();
+
+        foreach ($bundleBuilder->paths as $path) {
+            $discoverableItems = Discover::in($path)->any(...$bundleBuilder->conditions)->get();
 
             foreach ($discoverableItems as $discoverableItem) {
-                $reflectedDiscoveredItem = new ReflectionClass($discoverableItem);
-                $transformer = $this->identifyTransformerForClass($reflectedDiscoveredItem);
+                $reflectedItem = new ReflectionClass($discoverableItem);
+                $transformer = $this->getTransformerForClass($reflectedItem, $bundleBuilder);
 
-                if (is_null($transformer)) {
-                    continue;
+                if ($transformer) {
+                    $types->push($transformer->transform($reflectedItem));
                 }
-
-                $types->push($transformer->transform($reflectedDiscoveredItem));
             }
         }
 
-        $this->writeTypes($types, $selectedWriter);
+        return $types;
     }
 
     /**
-     * Get the writer key from the command argument or prompt the user to select one.
+     * Write the transformed types to the specified path.
      */
-    private function getWriterKey(array $writers): string
+    private function writeTypes(Collection $types, BundleBuilder $bundleBuilder): void
     {
-        return empty($this->argument('writer'))
-            ? $this->choice('Select writer', array_keys($writers), 0)
-            : $this->argument('writer');
+        $writer = new $bundleBuilder->writer;
+        file_put_contents($bundleBuilder->writeTo, $writer->write($types));
     }
 
     /**
-     * Discover items in the specified path based on the configured conditions.
+     * Get the appropriate transformer for a given class.
      */
-    private function discoverItems(string $path): array
+    private function getTransformerForClass(ReflectionClass $class, BundleBuilder $bundleBuilder): ?DataTypeTransformerContract
     {
-        return Discover::in($path)->any(...config('type-generator.discovery.conditions'))->get();
-    }
-
-    /**
-     * Write the types to the specified writer.
-     */
-    private function writeTypes(Collection $types, array $selectedWriter): void
-    {
-        /** @var WriterContract $writer */
-        $writer = new $selectedWriter['class'];
-        file_put_contents($selectedWriter['output_path'], $writer->write($types));
-    }
-
-    /**
-     * Identify the appropriate transformer for the given class.
-     */
-    public function identifyTransformerForClass(ReflectionClass $class): ?DataTypeTransformerContract
-    {
-        $transformers = config('type-generator.transformers');
-
-        foreach ($transformers as $transformer) {
-            $transformer = new $transformer;
+        foreach ($bundleBuilder->transformers as $transformerClass) {
+            $transformer = new $transformerClass;
             if ($transformer->canTransform($class)) {
                 return $transformer;
             }
