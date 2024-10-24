@@ -1,6 +1,6 @@
 {
     "name": "workflowable/type-generator",
-    "description": "This is my package type-generator",
+    "description": "Handles the conversion of data structures to TypeScript, with the ability to incorporate other languages.",
     "keywords": [
         "Workflowable",
         "laravel",
