@@ -1,6 +1,6 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Enums;
+namespace Strucura\TypeGenerator\Enums;
 
 enum PrimitiveObjectPropertyTypeEnum: string
 {

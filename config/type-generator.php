@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\StructureDiscoverer\Support\Conditions\ConditionBuilder;
-use Workflowable\TypeGenerator\Builders\BundleBuilder;
-use Workflowable\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
-use Workflowable\TypeGenerator\Transformers\JsonResourceDataTypeTransformer;
-use Workflowable\TypeGenerator\Writers\TypeScriptWriter;
+use Strucura\TypeGenerator\Builders\BundleBuilder;
+use Strucura\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
+use Strucura\TypeGenerator\Transformers\JsonResourceDataTypeTransformer;
+use Strucura\TypeGenerator\Writers\TypeScriptWriter;
 
 return [
     'bundles' => [

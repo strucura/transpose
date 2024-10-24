@@ -1,15 +1,15 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Concerns;
+namespace Strucura\TypeGenerator\Concerns;
 
 use Exception;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use ReflectionMethod;
-use Workflowable\TypeGenerator\Abstracts\AbstractObjectProperty;
-use Workflowable\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
-use Workflowable\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
-use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
+use Strucura\TypeGenerator\Abstracts\AbstractObjectProperty;
+use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
+use Strucura\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
+use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
 
 trait ConvertsTableDefinitionToObjectProperties
 {

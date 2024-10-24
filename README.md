@@ -1,9 +1,9 @@
 # Type Generator
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/workflowable/type-generator.svg?style=flat-square)](https://packagist.org/packages/workflowable/type-generator)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/workflowable/type-generator/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/workflowable/type-generator/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/workflowable/type-generator/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/workflowable/type-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/workflowable/type-generator.svg?style=flat-square)](https://packagist.org/packages/workflowable/type-generator)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/strucura/type-generator.svg?style=flat-square)](https://packagist.org/packages/strucura/type-generator)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/strucura/type-generator/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/strucura/type-generator/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/strucura/type-generator/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/strucura/type-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/strucura/type-generator.svg?style=flat-square)](https://packagist.org/packages/strucura/type-generator)
 
 Type Generator is a package designed to streamline the creation of types for your Laravel application across different languages by introducing standardized data types, which can then be consumed by a writer of your choice.
 
@@ -12,7 +12,7 @@ Type Generator is a package designed to streamline the creation of types for you
 You can install the package via composer:
 
 ```bash
-composer require workflowable/type-generator
+composer require strucura/type-generator
 ```
 
 ## Configuration:
@@ -32,10 +32,10 @@ Example configuration:
 ```php
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\StructureDiscoverer\Support\Conditions\ConditionBuilder;
-use Workflowable\TypeGenerator\Builders\BundleBuilder;
-use Workflowable\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
-use Workflowable\TypeGenerator\Transformers\JsonResourceDataTypeTransformer;
-use Workflowable\TypeGenerator\Writers\TypeScriptWriter;
+use Strucura\TypeGenerator\Builders\BundleBuilder;
+use Strucura\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
+use Strucura\TypeGenerator\Transformers\JsonResourceDataTypeTransformer;
+use Strucura\TypeGenerator\Writers\TypeScriptWriter;
 
 return [
     'bundles' => [
@@ -76,9 +76,9 @@ php artisan types:generate {bundle} // php artisan types:generate typescript
 The `DefineObjectProperties` attribute allows developers to manually assign properties to an object for edge cases where automated property assignment is not possible.
 
 ```php
-use Workflowable\TypeGenerator\Attributes\DefineObjectProperties;
-use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
-use Workflowable\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
+use Strucura\TypeGenerator\Attributes\DefineObjectProperties;
+use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
+use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
 
 #[DefineObjectProperties([
     new PrimitiveObjectProperty('property1', PrimitiveObjectPropertyTypeEnum::String),
@@ -95,7 +95,7 @@ class MyClass
 The `DeriveObjectPropertiesFromModel` attribute allows developers to derive object properties from a model.
 
 ```php
-use Workflowable\TypeGenerator\Attributes\DeriveObjectPropertiesFromModel;
+use Strucura\TypeGenerator\Attributes\DeriveObjectPropertiesFromModel;
 
 #[DeriveObjectPropertiesFromModel(MyModel::class)]
 class MyClass

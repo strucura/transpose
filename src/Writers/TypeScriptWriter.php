@@ -1,18 +1,18 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Writers;
+namespace Strucura\TypeGenerator\Writers;
 
 use Exception;
 use Illuminate\Support\Collection;
-use Workflowable\TypeGenerator\Abstracts\AbstractObjectProperty;
-use Workflowable\TypeGenerator\Contracts\WriterContract;
-use Workflowable\TypeGenerator\DataTypes\BackedEnumDataType;
-use Workflowable\TypeGenerator\DataTypes\ObjectDataType;
-use Workflowable\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
-use Workflowable\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
-use Workflowable\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
-use Workflowable\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
-use Workflowable\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
+use Strucura\TypeGenerator\Abstracts\AbstractObjectProperty;
+use Strucura\TypeGenerator\Contracts\WriterContract;
+use Strucura\TypeGenerator\DataTypes\BackedEnumDataType;
+use Strucura\TypeGenerator\DataTypes\ObjectDataType;
+use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
+use Strucura\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
+use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
+use Strucura\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
+use Strucura\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
 
 /**
  * Class TypeScriptWriter

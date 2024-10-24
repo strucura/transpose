@@ -1,5 +1,5 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Contracts;
+namespace Strucura\TypeGenerator\Contracts;
 
 interface ObjectPropertyContract {}

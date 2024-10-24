@@ -1,6 +1,6 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Attributes;
+namespace Strucura\TypeGenerator\Attributes;
 
 use Attribute;
 

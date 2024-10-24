@@ -1,6 +1,6 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Contracts;
+namespace Strucura\TypeGenerator\Contracts;
 
 use ReflectionClass;
 

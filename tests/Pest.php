@@ -1,5 +1,5 @@
 <?php
 
-use Workflowable\TypeGenerator\Tests\TestCase;
+use Strucura\TypeGenerator\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

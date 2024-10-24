@@ -1,10 +1,10 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Tests;
+namespace Strucura\TypeGenerator\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Workflowable\TypeGenerator\TypeGeneratorServiceProvider;
+use Strucura\TypeGenerator\TypeGeneratorServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Workflowable\\TypeGenerator\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Strucura\\TypeGenerator\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

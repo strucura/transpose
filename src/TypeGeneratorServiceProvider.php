@@ -1,10 +1,10 @@
 <?php
 
-namespace Workflowable\TypeGenerator;
+namespace Strucura\TypeGenerator;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Workflowable\TypeGenerator\Commands\TypeGeneratorCommand;
+use Strucura\TypeGenerator\Commands\TypeGeneratorCommand;
 
 class TypeGeneratorServiceProvider extends PackageServiceProvider
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Commands;
+namespace Strucura\TypeGenerator\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use ReflectionException;
 use Spatie\StructureDiscoverer\Discover;
-use Workflowable\TypeGenerator\Builders\BundleBuilder;
-use Workflowable\TypeGenerator\Contracts\DataTypeTransformerContract;
+use Strucura\TypeGenerator\Builders\BundleBuilder;
+use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
 
 /**
  * Command to generate type definitions for discovered classes into a language of choice.

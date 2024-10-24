@@ -1,8 +1,8 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Abstracts;
+namespace Strucura\TypeGenerator\Abstracts;
 
-use Workflowable\TypeGenerator\Contracts\ObjectPropertyContract;
+use Strucura\TypeGenerator\Contracts\ObjectPropertyContract;
 
 abstract class AbstractObjectProperty implements ObjectPropertyContract
 {

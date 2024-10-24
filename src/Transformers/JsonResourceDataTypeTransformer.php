@@ -1,19 +1,19 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Transformers;
+namespace Strucura\TypeGenerator\Transformers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 use ReflectionClass;
 use ReflectionException;
-use Workflowable\TypeGenerator\Attributes\DefineObjectProperties;
-use Workflowable\TypeGenerator\Attributes\DeriveObjectPropertiesFromModel;
-use Workflowable\TypeGenerator\Concerns\ConvertsTableDefinitionToObjectProperties;
-use Workflowable\TypeGenerator\Contracts\DataTypeTransformerContract;
-use Workflowable\TypeGenerator\DataTypes\ObjectDataType;
-use Workflowable\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
-use Workflowable\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
+use Strucura\TypeGenerator\Attributes\DefineObjectProperties;
+use Strucura\TypeGenerator\Attributes\DeriveObjectPropertiesFromModel;
+use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToObjectProperties;
+use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
+use Strucura\TypeGenerator\DataTypes\ObjectDataType;
+use Strucura\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
+use Strucura\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
 
 /**
  * Transforms Laravel JsonResource classes into standardized ObjectDataType instances.

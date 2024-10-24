@@ -1,12 +1,12 @@
 {
-    "name": "workflowable/type-generator",
+    "name": "strucura/type-generator",
     "description": "Handles the conversion of data structures to TypeScript, with the ability to incorporate other languages.",
     "keywords": [
-        "Workflowable",
+        "Strucura",
         "laravel",
         "type-generator"
     ],
-    "homepage": "https://github.com/workflowable/type-generator",
+    "homepage": "https://github.com/strucura/type-generator",
     "license": "MIT",
     "authors": [
         {
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Workflowable\\TypeGenerator\\": "src/",
-            "Workflowable\\TypeGenerator\\Database\\Factories\\": "database/factories/"
+            "Strucura\\TypeGenerator\\": "src/",
+            "Strucura\\TypeGenerator\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Workflowable\\TypeGenerator\\Tests\\": "tests/"
+            "Strucura\\TypeGenerator\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -60,10 +60,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Workflowable\\TypeGenerator\\TypeGeneratorServiceProvider"
+                "Strucura\\TypeGenerator\\TypeGeneratorServiceProvider"
             ],
             "aliases": {
-                "TypeGenerator": "Workflowable\\TypeGenerator\\Facades\\TypeGenerator"
+                "TypeGenerator": "Strucura\\TypeGenerator\\Facades\\TypeGenerator"
             }
         }
     },

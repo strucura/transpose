@@ -1,9 +1,9 @@
 <?php
 
-namespace Workflowable\TypeGenerator\ObjectProperties;
+namespace Strucura\TypeGenerator\ObjectProperties;
 
-use Workflowable\TypeGenerator\Abstracts\AbstractObjectProperty;
-use Workflowable\TypeGenerator\Contracts\ObjectPropertyContract;
+use Strucura\TypeGenerator\Abstracts\AbstractObjectProperty;
+use Strucura\TypeGenerator\Contracts\ObjectPropertyContract;
 
 class ReferenceArrayObjectProperty extends AbstractObjectProperty implements ObjectPropertyContract
 {

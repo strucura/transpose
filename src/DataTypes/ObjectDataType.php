@@ -1,9 +1,9 @@
 <?php
 
-namespace Workflowable\TypeGenerator\DataTypes;
+namespace Strucura\TypeGenerator\DataTypes;
 
-use Workflowable\TypeGenerator\Contracts\DataTypeContract;
-use Workflowable\TypeGenerator\Contracts\ObjectPropertyContract;
+use Strucura\TypeGenerator\Contracts\DataTypeContract;
+use Strucura\TypeGenerator\Contracts\ObjectPropertyContract;
 
 class ObjectDataType implements DataTypeContract
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Workflowable\TypeGenerator\Builders;
+namespace Strucura\TypeGenerator\Builders;
 
 use Spatie\StructureDiscoverer\DiscoverConditions\DiscoverCondition;
-use Workflowable\TypeGenerator\Contracts\DataTypeTransformerContract;
-use Workflowable\TypeGenerator\Contracts\WriterContract;
+use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
+use Strucura\TypeGenerator\Contracts\WriterContract;
 
 final class BundleBuilder
 {

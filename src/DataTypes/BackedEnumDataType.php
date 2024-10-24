@@ -1,8 +1,8 @@
 <?php
 
-namespace Workflowable\TypeGenerator\DataTypes;
+namespace Strucura\TypeGenerator\DataTypes;
 
-use Workflowable\TypeGenerator\Contracts\DataTypeContract;
+use Strucura\TypeGenerator\Contracts\DataTypeContract;
 
 class BackedEnumDataType implements DataTypeContract
 {
