@@ -99,7 +99,7 @@ class TypeGeneratorCommand extends Command
     private function writeTypes(Collection $types, BundleBuilder $bundleBuilder): void
     {
         $writer = new $bundleBuilder->writer;
-        file_put_contents($bundleBuilder->writeTo, $writer->write($types));
+        file_put_contents($bundleBuilder->writesTo, $writer->write($types));
     }
 
     /**

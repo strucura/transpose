@@ -54,7 +54,7 @@ return [
                 JsonResourceDataTypeTransformer::class,
             ])
             ->writer(TypeScriptWriter::class)
-            ->writeTo(base_path('resources/js/types.ts')),
+            ->writesTo(base_path('resources/js/types.ts')),
     ],
 ];
 ```

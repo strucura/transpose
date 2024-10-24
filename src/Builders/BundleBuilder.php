@@ -35,7 +35,7 @@ final class BundleBuilder
     /**
      * The path to write the generated types to.
      */
-    public string $writeTo;
+    public string $writesTo;
 
     public static function make(): BundleBuilder
     {
@@ -70,9 +70,9 @@ final class BundleBuilder
         return $this;
     }
 
-    public function writeTo(string $path): self
+    public function writesTo(string $path): self
     {
-        $this->writeTo = $path;
+        $this->writesTo = $path;
 
         return $this;
     }
