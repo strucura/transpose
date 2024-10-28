@@ -23,7 +23,7 @@ it('sets discovery paths correctly', function () {
 });
 
 it('sets discovery conditions correctly', function () {
-    $condition = mock(DiscoverCondition::class);
+    $condition = Mockery::mock(DiscoverCondition::class);
     $conditions = [$condition];
     $builder = BundleBuilder::make()->discoveryConditions($conditions);
 
@@ -31,14 +31,14 @@ it('sets discovery conditions correctly', function () {
 });
 
 it('sets transformers correctly', function () {
-    $transformers = [mock(DataTypeTransformerContract::class)];
+    $transformers = [Mockery::mock(DataTypeTransformerContract::class)];
     $builder = BundleBuilder::make()->transformers($transformers);
 
     expect($builder->transformers)->toBe($transformers);
 });
 
 it('sets writer correctly', function () {
-    $writer = mock(WriterContract::class);
+    $writer = Mockery::mock(WriterContract::class);
     $builder = BundleBuilder::make()->writer($writer);
 
     expect($builder->writer)->toBe($writer);
