@@ -2,18 +2,21 @@
 
 use Illuminate\Support\Facades\Schema;
 use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToObjectProperties;
+use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
 use Strucura\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
 use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
-use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
 
 beforeEach(function () {
-    $this->traitInstance = new class {
+    $this->traitInstance = new class
+    {
         use ConvertsTableDefinitionToObjectProperties;
     };
 });
 
-class TestModel {
-    public function getTable(): string {
+class TestModel
+{
+    public function getTable(): string
+    {
         return 'test_table';
     }
 }
@@ -23,7 +26,7 @@ it('derives enum type using database', function () {
         ->once()
         ->with('test_table')
         ->andReturn([
-            ['name' => 'status', 'type' => "enum('active','inactive')", 'type_name' => 'enum', 'nullable' => false]
+            ['name' => 'status', 'type' => "enum('active','inactive')", 'type_name' => 'enum', 'nullable' => false],
         ]);
 
     $property = $this->traitInstance->deriveTypeUsingDatabase('status', TestModel::class);
@@ -38,7 +41,7 @@ it('derives boolean type using database', function () {
         ->once()
         ->with('test_table')
         ->andReturn([
-            ['name' => 'is_active', 'type' => 'tinyint(1)', 'type_name' => 'tinyint(1)', 'nullable' => true]
+            ['name' => 'is_active', 'type' => 'tinyint(1)', 'type_name' => 'tinyint(1)', 'nullable' => true],
         ]);
 
     $property = $this->traitInstance->deriveTypeUsingDatabase('is_active', TestModel::class);
@@ -54,7 +57,7 @@ it('derives generic type using database', function () {
         ->once()
         ->with('test_table')
         ->andReturn([
-            ['name' => 'name', 'type' => 'varchar', 'type_name' => 'varchar', 'nullable' => false]
+            ['name' => 'name', 'type' => 'varchar', 'type_name' => 'varchar', 'nullable' => false],
         ]);
 
     $property = $this->traitInstance->deriveTypeUsingDatabase('name', TestModel::class);

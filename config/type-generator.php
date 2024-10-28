@@ -29,7 +29,7 @@ return [
                 BackedEnumDataTypeTransformer::class,
                 JsonResourceDataTypeTransformer::class,
             ])
-            ->writer(TypeScriptWriter::class)
+            ->writer(new TypeScriptWriter)
             ->writesTo(base_path('resources/js/types.ts')),
     ],
 ];

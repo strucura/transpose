@@ -30,12 +30,12 @@ final class BundleBuilder
     /**
      * The writer to use when generating the types.
      */
-    public WriterContract $writer;
+    public ?WriterContract $writer = null;
 
     /**
      * The path to write the generated types to.
      */
-    public string $writesTo;
+    public string $writesTo = '';
 
     public static function make(): BundleBuilder
     {
@@ -63,9 +63,9 @@ final class BundleBuilder
         return $this;
     }
 
-    public function writer(string $writer): self
+    public function writer(WriterContract $writer): self
     {
-        $this->writer = new $writer;
+        $this->writer = $writer;
 
         return $this;
     }
