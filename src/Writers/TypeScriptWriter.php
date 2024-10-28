@@ -93,7 +93,7 @@ class TypeScriptWriter implements WriterContract
     }
 
     /**
-     * Map an inline enum object property to a TypeScript type.
+     * Map an inline enum property to a TypeScript type.
      */
     public function mapInlineEnumToTypeScript(InlineEnumProperty $enumObjectProperty): string
     {
@@ -111,7 +111,7 @@ class TypeScriptWriter implements WriterContract
     }
 
     /**
-     * Map a primitive object property to a TypeScript type.
+     * Map a primitive property to a TypeScript type.
      */
     public function mapGenericObjectPropertyTypesToTypeScript(PrimitiveProperty $property): string
     {

@@ -9,7 +9,7 @@ use Attribute;
  * is not possible.
  */
 #[Attribute]
-class DefineObjectProperties
+class DefineProperties
 {
     public function __construct(public array $properties) {}
 }

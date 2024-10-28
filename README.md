@@ -76,11 +76,11 @@ php artisan types:generate {bundle} // php artisan types:generate typescript
 The `DefineObjectProperties` attribute allows developers to manually assign properties to an object for edge cases where automated property assignment is not possible.
 
 ```php
-use Strucura\TypeGenerator\Attributes\DefineObjectProperties;
+use Strucura\TypeGenerator\Attributes\DefineProperties;
 use Strucura\TypeGenerator\Properties\PrimitiveProperty;
 use Strucura\TypeGenerator\Enums\PrimitivesEnum;
 
-#[DefineObjectProperties([
+#[DefineProperties([
     new PrimitiveProperty('property1', PrimitivesEnum::String),
     new PrimitiveProperty('property2', PrimitivesEnum::Integer),
 ])]
@@ -92,12 +92,12 @@ class MyClass
 
 ### DeriveObjectPropertiesFromModel
 
-The `DeriveObjectPropertiesFromModel` attribute allows developers to derive object properties from a model.
+The `DeriveObjectPropertiesFromModel` attribute allows developers to derive properties from a model.
 
 ```php
-use Strucura\TypeGenerator\Attributes\DeriveObjectPropertiesFromModel;
+use Strucura\TypeGenerator\Attributes\DerivePropertiesFromModel;
 
-#[DeriveObjectPropertiesFromModel(MyModel::class)]
+#[DerivePropertiesFromModel(MyModel::class)]
 class MyClass
 {
     // Class implementation

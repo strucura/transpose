@@ -7,9 +7,9 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 use ReflectionClass;
 use ReflectionException;
-use Strucura\TypeGenerator\Attributes\DefineObjectProperties;
-use Strucura\TypeGenerator\Attributes\DeriveObjectPropertiesFromModel;
-use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToObjectProperties;
+use Strucura\TypeGenerator\Attributes\DefineProperties;
+use Strucura\TypeGenerator\Attributes\DerivePropertiesFromModel;
+use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToProperties;
 use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
 use Strucura\TypeGenerator\DataTypes\ObjectDataType;
 use Strucura\TypeGenerator\Properties\ReferenceProperty;
@@ -19,7 +19,7 @@ use Strucura\TypeGenerator\Properties\ReferenceProperty;
  */
 class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 {
-    use ConvertsTableDefinitionToObjectProperties;
+    use ConvertsTableDefinitionToProperties;
 
     public ObjectDataType $objectData;
 
@@ -46,12 +46,12 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
         $this->setObjectName($class);
 
         // Derive object properties from the model if the attribute is present.
-        if (! empty($class->getAttributes(DeriveObjectPropertiesFromModel::class))) {
+        if (! empty($class->getAttributes(DerivePropertiesFromModel::class))) {
             $this->derivePropertiesFromModel($class);
         }
 
         // Apply manually defined object properties if the attribute is present.
-        if (! empty($class->getAttributes(DefineObjectProperties::class))) {
+        if (! empty($class->getAttributes(DefineProperties::class))) {
             $this->applyDefinedProperties($class);
         }
 
@@ -73,7 +73,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
      */
     protected function derivePropertiesFromModel(ReflectionClass $class): void
     {
-        $modelFQCN = $class->getAttributes(DeriveObjectPropertiesFromModel::class)[0]->getArguments()[0];
+        $modelFQCN = $class->getAttributes(DerivePropertiesFromModel::class)[0]->getArguments()[0];
         $resourceClass = new ($class->getName())(new $modelFQCN);
         $resourceProperties = $resourceClass->toArray(new Request);
 
@@ -86,7 +86,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
                 $resourceProperty instanceof JsonResource => ReferenceProperty::make($resourcePropertyKey)
                     ->references(class_basename($resourceProperty))
                     ->isNullable(),
-                default => $this->deriveTypeUsingDatabase($resourcePropertyKey, $modelFQCN),
+                default => $this->derivePropertyUsingDatabase($resourcePropertyKey, $modelFQCN),
             };
 
             $this->objectData->addProperty($property);
@@ -98,7 +98,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
      */
     protected function applyDefinedProperties(ReflectionClass $class): void
     {
-        $properties = $class->getAttributes(DefineObjectProperties::class)[0]->getArguments()[0];
+        $properties = $class->getAttributes(DefineProperties::class)[0]->getArguments()[0];
 
         foreach ($properties as $property) {
             $this->objectData->addProperty($property);

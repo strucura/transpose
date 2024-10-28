@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToObjectProperties;
+use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToProperties;
 use Strucura\TypeGenerator\Enums\PrimitivesEnum;
 use Strucura\TypeGenerator\Properties\InlineEnumProperty;
 use Strucura\TypeGenerator\Properties\PrimitiveProperty;
@@ -9,7 +9,7 @@ use Strucura\TypeGenerator\Properties\PrimitiveProperty;
 beforeEach(function () {
     $this->traitInstance = new class
     {
-        use ConvertsTableDefinitionToObjectProperties;
+        use ConvertsTableDefinitionToProperties;
     };
 });
 
@@ -29,7 +29,7 @@ it('derives enum type using database', function () {
             ['name' => 'status', 'type' => "enum('active','inactive')", 'type_name' => 'enum', 'nullable' => false],
         ]);
 
-    $property = $this->traitInstance->deriveTypeUsingDatabase('status', TestModel::class);
+    $property = $this->traitInstance->derivePropertyUsingDatabase('status', TestModel::class);
 
     expect($property)->toBeInstanceOf(InlineEnumProperty::class)
         ->and($property->name)->toBe('status')
@@ -44,7 +44,7 @@ it('derives boolean type using database', function () {
             ['name' => 'is_active', 'type' => 'tinyint(1)', 'type_name' => 'tinyint(1)', 'nullable' => true],
         ]);
 
-    $property = $this->traitInstance->deriveTypeUsingDatabase('is_active', TestModel::class);
+    $property = $this->traitInstance->derivePropertyUsingDatabase('is_active', TestModel::class);
 
     expect($property)->toBeInstanceOf(PrimitiveProperty::class)
         ->and($property->name)->toBe('is_active')
@@ -60,7 +60,7 @@ it('derives generic type using database', function () {
             ['name' => 'name', 'type' => 'varchar', 'type_name' => 'varchar', 'nullable' => false],
         ]);
 
-    $property = $this->traitInstance->deriveTypeUsingDatabase('name', TestModel::class);
+    $property = $this->traitInstance->derivePropertyUsingDatabase('name', TestModel::class);
 
     expect($property)->toBeInstanceOf(PrimitiveProperty::class)
         ->and($property->name)->toBe('name')

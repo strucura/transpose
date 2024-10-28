@@ -11,28 +11,28 @@ use Strucura\TypeGenerator\Enums\PrimitivesEnum;
 use Strucura\TypeGenerator\Properties\InlineEnumProperty;
 use Strucura\TypeGenerator\Properties\PrimitiveProperty;
 
-trait ConvertsTableDefinitionToObjectProperties
+trait ConvertsTableDefinitionToProperties
 {
     /**
-     * Derives the object property using the database schema.
+     * Derives the property using the database schema.
      *
-     * @param  string  $objectPropertyName  The name of the object property.
+     * @param  string  $propertyName  The name of the property.
      * @param  string  $modelFQCN  The fully qualified class name of the model.
-     * @return AbstractProperty The derived object property.
+     * @return AbstractProperty The derived property.
      *
      * @throws \ReflectionException
      * @throws Exception
      */
-    public function deriveTypeUsingDatabase(string $objectPropertyName, string $modelFQCN): AbstractProperty
+    public function derivePropertyUsingDatabase(string $propertyName, string $modelFQCN): AbstractProperty
     {
         $table = $this->getTableName($modelFQCN);
-        $columnSchema = $this->getColumnSchema($table, $objectPropertyName);
+        $columnSchema = $this->getColumnSchema($table, $propertyName);
 
         if (empty($columnSchema)) {
-            throw new Exception("Column $objectPropertyName not found in table $table");
+            throw new Exception("Column $propertyName not found in table $table");
         }
 
-        return $this->createObjectProperty($columnSchema, $objectPropertyName);
+        return $this->createObjectProperty($columnSchema, $propertyName);
     }
 
     /**
@@ -66,15 +66,15 @@ trait ConvertsTableDefinitionToObjectProperties
      * Creates an object property based on the column schema.
      *
      * @param  array  $columnSchema  The column schema.
-     * @param  string  $objectPropertyName  The name of the object property.
+     * @param  string  $propertyName  The name of the property.
      * @return AbstractProperty The created object property.
      */
-    private function createObjectProperty(array $columnSchema, string $objectPropertyName): AbstractProperty
+    private function createObjectProperty(array $columnSchema, string $propertyName): AbstractProperty
     {
         return match (true) {
-            $columnSchema['type_name'] === 'enum' => $this->handleEnumColumn($columnSchema, $objectPropertyName),
-            $columnSchema['type'] === 'tinyint(1)' => $this->handleBooleanColumn($columnSchema, $objectPropertyName),
-            default => $this->handleGenericColumn($columnSchema, $objectPropertyName),
+            $columnSchema['type_name'] === 'enum' => $this->handleEnumColumn($columnSchema, $propertyName),
+            $columnSchema['type'] === 'tinyint(1)' => $this->handleBooleanColumn($columnSchema, $propertyName),
+            default => $this->handleGenericColumn($columnSchema, $propertyName),
         };
     }
 
@@ -82,10 +82,10 @@ trait ConvertsTableDefinitionToObjectProperties
      * Handles the conversion of an enum column to an InlineEnumProperty.
      *
      * @param  array  $column  The column schema.
-     * @param  string  $objectPropertyName  The name of the object property.
+     * @param  string  $propertyName  The name of the property.
      * @return InlineEnumProperty The created InlineEnumProperty.
      */
-    private function handleEnumColumn(array $column, string $objectPropertyName): InlineEnumProperty
+    private function handleEnumColumn(array $column, string $propertyName): InlineEnumProperty
     {
         $cases = Str::of($column['type'])
             ->after('enum(')
@@ -94,7 +94,7 @@ trait ConvertsTableDefinitionToObjectProperties
             ->map(fn ($case) => is_numeric($case = Str::of($case)->trim("'")->toString()) ? $case + 0 : $case)
             ->toArray();
 
-        return InlineEnumProperty::make($objectPropertyName)
+        return InlineEnumProperty::make($propertyName)
             ->cases($cases)
             ->when($column['nullable'], fn ($property) => $property->isNullable());
     }
@@ -103,12 +103,12 @@ trait ConvertsTableDefinitionToObjectProperties
      * Handles the conversion of a tinyint(1) column to a PrimitiveProperty with a boolean type.
      *
      * @param  array  $column  The column schema.
-     * @param  string  $objectPropertyName  The name of the object property.
+     * @param  string  $propertyName  The name of the property.
      * @return PrimitiveProperty The created PrimitiveProperty.
      */
-    private function handleBooleanColumn(array $column, string $objectPropertyName): PrimitiveProperty
+    private function handleBooleanColumn(array $column, string $propertyName): PrimitiveProperty
     {
-        return PrimitiveProperty::make($objectPropertyName)
+        return PrimitiveProperty::make($propertyName)
             ->primitive(PrimitivesEnum::tryFromDatabaseColumnType('boolean'))
             ->when($column['nullable'], fn ($property) => $property->isNullable());
     }
@@ -117,12 +117,12 @@ trait ConvertsTableDefinitionToObjectProperties
      * Handles the conversion of a generic column to a PrimitiveProperty.
      *
      * @param  array  $column  The column schema.
-     * @param  string  $objectPropertyName  The name of the object property.
+     * @param  string  $propertyName  The name of the property.
      * @return PrimitiveProperty The created PrimitiveProperty.
      */
-    private function handleGenericColumn(array $column, string $objectPropertyName): PrimitiveProperty
+    private function handleGenericColumn(array $column, string $propertyName): PrimitiveProperty
     {
-        return PrimitiveProperty::make($objectPropertyName)
+        return PrimitiveProperty::make($propertyName)
             ->primitive(PrimitivesEnum::tryFromDatabaseColumnType($column['type_name']))
             ->when($column['nullable'], fn ($property) => $property->isNullable());
     }
