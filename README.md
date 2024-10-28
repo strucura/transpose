@@ -77,12 +77,12 @@ The `DefineObjectProperties` attribute allows developers to manually assign prop
 
 ```php
 use Strucura\TypeGenerator\Attributes\DefineObjectProperties;
-use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
-use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
+use Strucura\TypeGenerator\Properties\PrimitiveProperty;
+use Strucura\TypeGenerator\Enums\PrimitivesEnum;
 
 #[DefineObjectProperties([
-    new PrimitiveObjectProperty('property1', PrimitiveObjectPropertyTypeEnum::String),
-    new PrimitiveObjectProperty('property2', PrimitiveObjectPropertyTypeEnum::Integer),
+    new PrimitiveProperty('property1', PrimitivesEnum::String),
+    new PrimitiveProperty('property2', PrimitivesEnum::Integer),
 ])]
 class MyClass
 {

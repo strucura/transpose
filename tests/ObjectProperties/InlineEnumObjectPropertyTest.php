@@ -1,15 +1,14 @@
 <?php
 
-use Strucura\TypeGenerator\Abstracts\AbstractObjectProperty;
-use Strucura\TypeGenerator\Contracts\ObjectPropertyContract;
-use Strucura\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
+use Strucura\TypeGenerator\Abstracts\AbstractProperty;
+use Strucura\TypeGenerator\Contracts\PropertyContract;
+use Strucura\TypeGenerator\Properties\InlineEnumProperty;
 
 it('initializes properties correctly', function () {
     $name = 'status';
     $cases = ['active', 'inactive'];
-    $isNullable = true;
 
-    $property = new InlineEnumObjectProperty($name, $cases, $isNullable);
+    $property = InlineEnumProperty::make($name)->cases($cases)->isNullable();
 
     expect($property->name)->toBe($name)
         ->and($property->cases)->toBe($cases)
@@ -17,13 +16,13 @@ it('initializes properties correctly', function () {
 });
 
 it('inherits from AbstractObjectProperty', function () {
-    $property = new InlineEnumObjectProperty('status', ['active', 'inactive']);
+    $property = InlineEnumProperty::make('status')->cases(['active', 'inactive'])->isNullable();
 
-    expect($property)->toBeInstanceOf(AbstractObjectProperty::class);
+    expect($property)->toBeInstanceOf(AbstractProperty::class);
 });
 
 it('implements ObjectPropertyContract', function () {
-    $property = new InlineEnumObjectProperty('status', ['active', 'inactive']);
+    $property = InlineEnumProperty::make('status')->cases(['active', 'inactive'])->isNullable();
 
-    expect($property)->toBeInstanceOf(ObjectPropertyContract::class);
+    expect($property)->toBeInstanceOf(PropertyContract::class);
 });

@@ -12,8 +12,7 @@ use Strucura\TypeGenerator\Attributes\DeriveObjectPropertiesFromModel;
 use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToObjectProperties;
 use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
 use Strucura\TypeGenerator\DataTypes\ObjectDataType;
-use Strucura\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
-use Strucura\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
+use Strucura\TypeGenerator\Properties\ReferenceProperty;
 
 /**
  * Transforms Laravel JsonResource classes into standardized ObjectDataType instances.
@@ -80,16 +79,13 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
         foreach ($resourceProperties as $resourcePropertyKey => $resourceProperty) {
             $property = match (true) {
-                $resourceProperty instanceof AnonymousResourceCollection => new ReferenceArrayObjectProperty(
-                    $resourcePropertyKey,
-                    class_basename($resourceProperty->collects),
-                    true
-                ),
-                $resourceProperty instanceof JsonResource => new ReferenceObjectProperty(
-                    $resourcePropertyKey,
-                    class_basename($resourceProperty),
-                    true
-                ),
+                $resourceProperty instanceof AnonymousResourceCollection => ReferenceProperty::make($resourcePropertyKey)
+                    ->references($resourceProperty->collects)
+                    ->isArrayOf()
+                    ->isNullable(),
+                $resourceProperty instanceof JsonResource => ReferenceProperty::make($resourcePropertyKey)
+                    ->references(class_basename($resourceProperty))
+                    ->isNullable(),
                 default => $this->deriveTypeUsingDatabase($resourcePropertyKey, $modelFQCN),
             };
 

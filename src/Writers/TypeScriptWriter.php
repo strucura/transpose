@@ -4,15 +4,14 @@ namespace Strucura\TypeGenerator\Writers;
 
 use Exception;
 use Illuminate\Support\Collection;
-use Strucura\TypeGenerator\Abstracts\AbstractObjectProperty;
+use Strucura\TypeGenerator\Abstracts\AbstractProperty;
 use Strucura\TypeGenerator\Contracts\WriterContract;
 use Strucura\TypeGenerator\DataTypes\BackedEnumDataType;
 use Strucura\TypeGenerator\DataTypes\ObjectDataType;
-use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
-use Strucura\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
-use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
-use Strucura\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
-use Strucura\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
+use Strucura\TypeGenerator\Enums\PrimitivesEnum;
+use Strucura\TypeGenerator\Properties\InlineEnumProperty;
+use Strucura\TypeGenerator\Properties\PrimitiveProperty;
+use Strucura\TypeGenerator\Properties\ReferenceProperty;
 
 /**
  * Class TypeScriptWriter
@@ -67,19 +66,19 @@ class TypeScriptWriter implements WriterContract
 
         $propertiesString = '';
 
-        $mappedProperties = collect($properties)->mapWithKeys(function (AbstractObjectProperty $objectProperty) {
+        $mappedProperties = collect($properties)->mapWithKeys(function (AbstractProperty $objectProperty) {
 
             $typeScriptType = match (true) {
-                $objectProperty instanceof PrimitiveObjectProperty => $this->mapGenericObjectPropertyTypesToTypeScript($objectProperty),
-                $objectProperty instanceof InlineEnumObjectProperty => $this->mapInlineEnumToTypeScript($objectProperty),
-                $objectProperty instanceof ReferenceObjectProperty => $objectProperty->reference,
-                $objectProperty instanceof ReferenceArrayObjectProperty => $objectProperty->reference.'[]',
+                $objectProperty instanceof PrimitiveProperty => $this->mapGenericObjectPropertyTypesToTypeScript($objectProperty),
+                $objectProperty instanceof InlineEnumProperty => $this->mapInlineEnumToTypeScript($objectProperty),
+                $objectProperty instanceof ReferenceProperty => $objectProperty->reference,
                 default => 'any',
             };
 
             $nullableString = $objectProperty->isNullable ? '?' : '';
+            $arrayString = $objectProperty->isArrayOf ? '[]' : '';
 
-            return ["'".$objectProperty->name."'$nullableString" => $typeScriptType];
+            return ["'".$objectProperty->name."'$nullableString" => $typeScriptType.$arrayString];
         });
 
         foreach ($mappedProperties as $name => $propertyType) {
@@ -96,7 +95,7 @@ class TypeScriptWriter implements WriterContract
     /**
      * Map an inline enum object property to a TypeScript type.
      */
-    public function mapInlineEnumToTypeScript(InlineEnumObjectProperty $enumObjectProperty): string
+    public function mapInlineEnumToTypeScript(InlineEnumProperty $enumObjectProperty): string
     {
         if (empty($enumObjectProperty->cases)) {
             return '(string | number)[]';
@@ -114,26 +113,26 @@ class TypeScriptWriter implements WriterContract
     /**
      * Map a primitive object property to a TypeScript type.
      */
-    public function mapGenericObjectPropertyTypesToTypeScript(PrimitiveObjectProperty $property): string
+    public function mapGenericObjectPropertyTypesToTypeScript(PrimitiveProperty $property): string
     {
         return match ($property->primitive) {
             // Number Types
-            PrimitiveObjectPropertyTypeEnum::Integer,
-            PrimitiveObjectPropertyTypeEnum::Float => 'number',
+            PrimitivesEnum::Integer,
+            PrimitivesEnum::Float => 'number',
 
             // Boolean Types
-            PrimitiveObjectPropertyTypeEnum::Boolean => 'boolean',
+            PrimitivesEnum::Boolean => 'boolean',
 
             // Date Types
-            PrimitiveObjectPropertyTypeEnum::DateTime,
-            PrimitiveObjectPropertyTypeEnum::Date => 'Date',
+            PrimitivesEnum::DateTime,
+            PrimitivesEnum::Date => 'Date',
 
             // String Types
-            PrimitiveObjectPropertyTypeEnum::String,
-            PrimitiveObjectPropertyTypeEnum::Time => 'string',
+            PrimitivesEnum::String,
+            PrimitivesEnum::Time => 'string',
 
             // Geometry Types
-            PrimitiveObjectPropertyTypeEnum::Point => '{ latitude: number, longitude: number }',
+            PrimitivesEnum::Point => '{ latitude: number, longitude: number }',
             default => 'any',
         };
     }

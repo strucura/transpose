@@ -1,29 +1,29 @@
 <?php
 
-use Strucura\TypeGenerator\Abstracts\AbstractObjectProperty;
-use Strucura\TypeGenerator\Contracts\ObjectPropertyContract;
-use Strucura\TypeGenerator\ObjectProperties\ReferenceArrayObjectProperty;
-use Strucura\TypeGenerator\ObjectProperties\ReferenceObjectProperty;
+use Strucura\TypeGenerator\Abstracts\AbstractProperty;
+use Strucura\TypeGenerator\Contracts\PropertyContract;
+use Strucura\TypeGenerator\Properties\ReferenceProperty;
 
 it('initializes properties correctly', function () {
     $name = 'items';
     $reference = 'Item';
 
-    $property = new ReferenceObjectProperty($name, $reference, true);
+    $property = ReferenceProperty::make($name)->references($reference)->isNullable()->isArrayOf();
 
     expect($property->name)->toBe($name)
         ->and($property->reference)->toBe($reference)
-        ->and($property->isNullable)->toBeTrue();
+        ->and($property->isNullable)->toBeTrue()
+        ->and($property->isArrayOf)->toBeTrue();
 });
 
 it('inherits from AbstractObjectProperty', function () {
-    $property = new ReferenceArrayObjectProperty('items', 'Item');
+    $property = ReferenceProperty::make('items')->references('Item')->isNullable();
 
-    expect($property)->toBeInstanceOf(AbstractObjectProperty::class);
+    expect($property)->toBeInstanceOf(AbstractProperty::class);
 });
 
 it('implements ObjectPropertyContract', function () {
-    $property = new ReferenceArrayObjectProperty('items', 'Item');
+    $property = ReferenceProperty::make('items')->references('Item')->isNullable();
 
-    expect($property)->toBeInstanceOf(ObjectPropertyContract::class);
+    expect($property)->toBeInstanceOf(PropertyContract::class);
 });

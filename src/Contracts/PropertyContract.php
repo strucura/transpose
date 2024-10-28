@@ -2,4 +2,4 @@
 
 namespace Strucura\TypeGenerator\Contracts;
 
-interface ObjectPropertyContract {}
+interface PropertyContract {}

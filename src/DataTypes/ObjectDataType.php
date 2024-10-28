@@ -3,7 +3,7 @@
 namespace Strucura\TypeGenerator\DataTypes;
 
 use Strucura\TypeGenerator\Contracts\DataTypeContract;
-use Strucura\TypeGenerator\Contracts\ObjectPropertyContract;
+use Strucura\TypeGenerator\Contracts\PropertyContract;
 
 class ObjectDataType implements DataTypeContract
 {
@@ -11,7 +11,7 @@ class ObjectDataType implements DataTypeContract
 
     protected array $properties = [];
 
-    public function addProperty(ObjectPropertyContract $property): void
+    public function addProperty(PropertyContract $property): void
     {
         $this->properties[] = $property;
     }

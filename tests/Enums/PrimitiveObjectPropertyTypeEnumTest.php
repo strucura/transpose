@@ -2,62 +2,62 @@
 
 // tests/PrimitiveObjectPropertyTypeEnumTest.php
 
-use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
+use Strucura\TypeGenerator\Enums\PrimitivesEnum;
 
 it('returns Integer for integer types', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('bigint'))->toBe(PrimitiveObjectPropertyTypeEnum::Integer)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('integer'))->toBe(PrimitiveObjectPropertyTypeEnum::Integer)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('mediumint'))->toBe(PrimitiveObjectPropertyTypeEnum::Integer)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('smallint'))->toBe(PrimitiveObjectPropertyTypeEnum::Integer)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('tinyint'))->toBe(PrimitiveObjectPropertyTypeEnum::Integer)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('year'))->toBe(PrimitiveObjectPropertyTypeEnum::Integer);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('bigint'))->toBe(PrimitivesEnum::Integer)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('integer'))->toBe(PrimitivesEnum::Integer)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('mediumint'))->toBe(PrimitivesEnum::Integer)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('smallint'))->toBe(PrimitivesEnum::Integer)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('tinyint'))->toBe(PrimitivesEnum::Integer)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('year'))->toBe(PrimitivesEnum::Integer);
 });
 
 it('returns Boolean for boolean types', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('binary'))->toBe(PrimitiveObjectPropertyTypeEnum::Boolean)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('boolean'))->toBe(PrimitiveObjectPropertyTypeEnum::Boolean)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('bit'))->toBe(PrimitiveObjectPropertyTypeEnum::Boolean);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('binary'))->toBe(PrimitivesEnum::Boolean)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('boolean'))->toBe(PrimitivesEnum::Boolean)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('bit'))->toBe(PrimitivesEnum::Boolean);
 });
 
 it('returns String for string types', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('char'))->toBe(PrimitiveObjectPropertyTypeEnum::String)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('mediumtext'))->toBe(PrimitiveObjectPropertyTypeEnum::String)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('longtext'))->toBe(PrimitiveObjectPropertyTypeEnum::String)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('text'))->toBe(PrimitiveObjectPropertyTypeEnum::String)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('tinytext'))->toBe(PrimitiveObjectPropertyTypeEnum::String)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('varchar'))->toBe(PrimitiveObjectPropertyTypeEnum::String);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('char'))->toBe(PrimitivesEnum::String)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('mediumtext'))->toBe(PrimitivesEnum::String)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('longtext'))->toBe(PrimitivesEnum::String)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('text'))->toBe(PrimitivesEnum::String)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('tinytext'))->toBe(PrimitivesEnum::String)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('varchar'))->toBe(PrimitivesEnum::String);
 });
 
 it('returns Date for date type', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('date'))->toBe(PrimitiveObjectPropertyTypeEnum::Date);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('date'))->toBe(PrimitivesEnum::Date);
 });
 
 it('returns DateTime for datetime types', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('datetime'))->toBe(PrimitiveObjectPropertyTypeEnum::DateTime)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('timestamp'))->toBe(PrimitiveObjectPropertyTypeEnum::DateTime);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('datetime'))->toBe(PrimitivesEnum::DateTime)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('timestamp'))->toBe(PrimitivesEnum::DateTime);
 });
 
 it('returns Float for float types', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('decimal'))->toBe(PrimitiveObjectPropertyTypeEnum::Float)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('double'))->toBe(PrimitiveObjectPropertyTypeEnum::Float)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('float'))->toBe(PrimitiveObjectPropertyTypeEnum::Float);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('decimal'))->toBe(PrimitivesEnum::Float)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('double'))->toBe(PrimitivesEnum::Float)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('float'))->toBe(PrimitivesEnum::Float);
 });
 
 it('returns Time for time type', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('time'))->toBe(PrimitiveObjectPropertyTypeEnum::Time);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('time'))->toBe(PrimitivesEnum::Time);
 });
 
 it('returns correct enum for geometry types', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('point'))->toBe(PrimitiveObjectPropertyTypeEnum::Point)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('geometry'))->toBe(PrimitiveObjectPropertyTypeEnum::Geometry)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('geometrycollection'))->toBe(PrimitiveObjectPropertyTypeEnum::GeometryCollection)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('linestring'))->toBe(PrimitiveObjectPropertyTypeEnum::LineString)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('multilinestring'))->toBe(PrimitiveObjectPropertyTypeEnum::MultiLineString)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('multipoint'))->toBe(PrimitiveObjectPropertyTypeEnum::MultiPoint)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('multipolygon'))->toBe(PrimitiveObjectPropertyTypeEnum::MultiPolygon)
-        ->and(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('polygon'))->toBe(PrimitiveObjectPropertyTypeEnum::Polygon);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('point'))->toBe(PrimitivesEnum::Point)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('geometry'))->toBe(PrimitivesEnum::Geometry)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('geometrycollection'))->toBe(PrimitivesEnum::GeometryCollection)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('linestring'))->toBe(PrimitivesEnum::LineString)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('multilinestring'))->toBe(PrimitivesEnum::MultiLineString)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('multipoint'))->toBe(PrimitivesEnum::MultiPoint)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('multipolygon'))->toBe(PrimitivesEnum::MultiPolygon)
+        ->and(PrimitivesEnum::tryFromDatabaseColumnType('polygon'))->toBe(PrimitivesEnum::Polygon);
 });
 
 it('returns Any for unknown types', function () {
-    expect(PrimitiveObjectPropertyTypeEnum::tryFromDatabaseColumnType('unknown'))->toBe(PrimitiveObjectPropertyTypeEnum::Any);
+    expect(PrimitivesEnum::tryFromDatabaseColumnType('unknown'))->toBe(PrimitivesEnum::Any);
 });

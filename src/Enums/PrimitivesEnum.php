@@ -2,7 +2,7 @@
 
 namespace Strucura\TypeGenerator\Enums;
 
-enum PrimitiveObjectPropertyTypeEnum: string
+enum PrimitivesEnum: string
 {
     case Integer = 'integer';
     case Boolean = 'boolean';
@@ -21,7 +21,7 @@ enum PrimitiveObjectPropertyTypeEnum: string
     case Polygon = 'polygon';
     case Any = 'any';
 
-    public static function tryFromDatabaseColumnType(string $columnType): PrimitiveObjectPropertyTypeEnum
+    public static function tryFromDatabaseColumnType(string $columnType): PrimitivesEnum
     {
         return match ($columnType) {
             'bigint', 'integer', 'mediumint', 'smallint', 'tinyint', 'year' => self::Integer,

@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Schema;
 use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToObjectProperties;
-use Strucura\TypeGenerator\Enums\PrimitiveObjectPropertyTypeEnum;
-use Strucura\TypeGenerator\ObjectProperties\InlineEnumObjectProperty;
-use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
+use Strucura\TypeGenerator\Enums\PrimitivesEnum;
+use Strucura\TypeGenerator\Properties\InlineEnumProperty;
+use Strucura\TypeGenerator\Properties\PrimitiveProperty;
 
 beforeEach(function () {
     $this->traitInstance = new class
@@ -31,7 +31,7 @@ it('derives enum type using database', function () {
 
     $property = $this->traitInstance->deriveTypeUsingDatabase('status', TestModel::class);
 
-    expect($property)->toBeInstanceOf(InlineEnumObjectProperty::class)
+    expect($property)->toBeInstanceOf(InlineEnumProperty::class)
         ->and($property->name)->toBe('status')
         ->and($property->cases)->toBe(['active', 'inactive']);
 });
@@ -46,9 +46,9 @@ it('derives boolean type using database', function () {
 
     $property = $this->traitInstance->deriveTypeUsingDatabase('is_active', TestModel::class);
 
-    expect($property)->toBeInstanceOf(PrimitiveObjectProperty::class)
+    expect($property)->toBeInstanceOf(PrimitiveProperty::class)
         ->and($property->name)->toBe('is_active')
-        ->and($property->primitive)->toBe(PrimitiveObjectPropertyTypeEnum::Boolean)
+        ->and($property->primitive)->toBe(PrimitivesEnum::Boolean)
         ->and($property->isNullable)->toBeTrue();
 });
 
@@ -62,8 +62,8 @@ it('derives generic type using database', function () {
 
     $property = $this->traitInstance->deriveTypeUsingDatabase('name', TestModel::class);
 
-    expect($property)->toBeInstanceOf(PrimitiveObjectProperty::class)
+    expect($property)->toBeInstanceOf(PrimitiveProperty::class)
         ->and($property->name)->toBe('name')
-        ->and($property->primitive)->toBe(PrimitiveObjectPropertyTypeEnum::String)
+        ->and($property->primitive)->toBe(PrimitivesEnum::String)
         ->and($property->isNullable)->toBeFalse();
 });
