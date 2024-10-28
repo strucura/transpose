@@ -1,7 +1,6 @@
 # Transpose
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/strucura/transpose.svg?style=flat-square)]
-(https://packagist.org/packages/strucura/transpose)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/strucura/transpose.svg?style=flat-square)](https://packagist.org/packages/strucura/transpose)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/strucura/transpose/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/strucura/transpose/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/strucura/transpose/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/strucura/transpose/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/strucura/transpose.svg?style=flat-square)](https://packagist.org/packages/strucura/transpose)
