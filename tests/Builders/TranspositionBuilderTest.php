@@ -1,14 +1,15 @@
 <?php
 
 use Spatie\StructureDiscoverer\DiscoverConditions\DiscoverCondition;
-use Strucura\Transpose\Builders\BundleBuilder;
+use Strucura\Transpose\Builders\TranspositionBuilder;
 use Strucura\Transpose\Contracts\DataTypeTransformerContract;
 use Strucura\Transpose\Contracts\WriterContract;
 
 it('initializes correctly', function () {
-    $builder = BundleBuilder::make();
+    $builder = TranspositionBuilder::make('Test');
 
     expect($builder->paths)->toBeArray()->toBeEmpty()
+        ->and($builder->name)->toBe('Test')
         ->and($builder->conditions)->toBeArray()->toBeEmpty()
         ->and($builder->transformers)->toBeArray()->toBeEmpty()
         ->and($builder->writer)->toBeEmpty()
@@ -17,7 +18,7 @@ it('initializes correctly', function () {
 
 it('sets discovery paths correctly', function () {
     $paths = ['/path/to/discover'];
-    $builder = BundleBuilder::make()->discoveryPaths($paths);
+    $builder = TranspositionBuilder::make('Test')->discoveryPaths($paths);
 
     expect($builder->paths)->toBe($paths);
 });
@@ -25,28 +26,28 @@ it('sets discovery paths correctly', function () {
 it('sets discovery conditions correctly', function () {
     $condition = Mockery::mock(DiscoverCondition::class);
     $conditions = [$condition];
-    $builder = BundleBuilder::make()->discoveryConditions($conditions);
+    $builder = TranspositionBuilder::make('Test')->discoveryConditions($conditions);
 
     expect($builder->conditions)->toBe($conditions);
 });
 
 it('sets transformers correctly', function () {
     $transformers = [Mockery::mock(DataTypeTransformerContract::class)];
-    $builder = BundleBuilder::make()->transformers($transformers);
+    $builder = TranspositionBuilder::make('Test')->transformers($transformers);
 
     expect($builder->transformers)->toBe($transformers);
 });
 
 it('sets writer correctly', function () {
     $writer = Mockery::mock(WriterContract::class);
-    $builder = BundleBuilder::make()->writer($writer);
+    $builder = TranspositionBuilder::make('Test')->writer($writer);
 
     expect($builder->writer)->toBe($writer);
 });
 
 it('sets writesTo path correctly', function () {
     $path = '/path/to/write';
-    $builder = BundleBuilder::make()->writesTo($path);
+    $builder = TranspositionBuilder::make('Test')->writesTo($path);
 
     expect($builder->writesTo)->toBe($path);
 });

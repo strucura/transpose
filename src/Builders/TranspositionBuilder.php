@@ -6,10 +6,12 @@ use Spatie\StructureDiscoverer\DiscoverConditions\DiscoverCondition;
 use Strucura\Transpose\Contracts\DataTypeTransformerContract;
 use Strucura\Transpose\Contracts\WriterContract;
 
-final class BundleBuilder
+final class TranspositionBuilder
 {
+    public string $name = '';
+
     /**
-     * The paths to search for classes to generate types for.
+     * The paths to search for classes to perform transpositions on.
      */
     public array $paths = [];
 
@@ -21,25 +23,28 @@ final class BundleBuilder
     public array $conditions = [];
 
     /**
-     * The transformers to use when generating the types.
+     * The transformers to use when transposing data structures.
      *
      * @var array<DataTypeTransformerContract>
      */
     public array $transformers = [];
 
     /**
-     * The writer to use when generating the types.
+     * The writer to use when transposing data structures.
      */
     public ?WriterContract $writer = null;
 
     /**
-     * The path to write the generated types to.
+     * The path to write the transposed data structures.
      */
     public string $writesTo = '';
 
-    public static function make(): BundleBuilder
+    public static function make(string $name): TranspositionBuilder
     {
-        return new BundleBuilder;
+        $builder = new TranspositionBuilder;
+        $builder->name = $name;
+
+        return $builder;
     }
 
     public function discoveryPaths(array $paths): self

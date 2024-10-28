@@ -5,7 +5,7 @@ namespace Strucura\Transpose\Attributes;
 use Attribute;
 
 /**
- * Allows for a developer to derive object properties from a model.
+ * Allows for a developer to derive properties from a model.
  */
 #[Attribute]
 class DerivePropertiesFromModel

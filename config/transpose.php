@@ -2,17 +2,17 @@
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\StructureDiscoverer\Support\Conditions\ConditionBuilder;
-use Strucura\Transpose\Builders\BundleBuilder;
+use Strucura\Transpose\Builders\TranspositionBuilder;
 use Strucura\Transpose\Transformers\BackedEnumDataTypeTransformer;
 use Strucura\Transpose\Transformers\JsonResourceDataTypeTransformer;
 use Strucura\Transpose\Writers\TypeScriptWriter;
 
 return [
-    'bundles' => [
+    'transpositions' => [
         /**
          * This bundle will generate TypeScript types for all json resources and enums in the app directory.
          */
-        'typescript' => BundleBuilder::make()
+        TranspositionBuilder::make('TypeScript')
             ->discoveryPaths([
                 app_path(''),
             ])

@@ -63,7 +63,7 @@ trait ConvertsTableDefinitionToProperties
     }
 
     /**
-     * Creates an object property based on the column schema.
+     * Creates a property based on the column schema.
      *
      * @param  array  $columnSchema  The column schema.
      * @param  string  $propertyName  The name of the property.
@@ -79,7 +79,7 @@ trait ConvertsTableDefinitionToProperties
     }
 
     /**
-     * Handles the conversion of an enum column to an InlineEnumProperty.
+     * Handles the transposition of an enum column to an InlineEnumProperty.
      *
      * @param  array  $column  The column schema.
      * @param  string  $propertyName  The name of the property.
@@ -100,7 +100,7 @@ trait ConvertsTableDefinitionToProperties
     }
 
     /**
-     * Handles the conversion of a tinyint(1) column to a PrimitiveProperty with a boolean type.
+     * Handles the transposition of a tinyint(1) column to a PrimitiveProperty with a boolean type.
      *
      * @param  array  $column  The column schema.
      * @param  string  $propertyName  The name of the property.
@@ -114,7 +114,7 @@ trait ConvertsTableDefinitionToProperties
     }
 
     /**
-     * Handles the conversion of a generic column to a PrimitiveProperty.
+     * Handles the transposition of a generic column to a PrimitiveProperty.
      *
      * @param  array  $column  The column schema.
      * @param  string  $propertyName  The name of the property.

@@ -16,7 +16,7 @@ use Strucura\Transpose\Properties\ReferenceProperty;
 /**
  * Class TypeScriptWriter
  *
- * This class is responsible for converting data types into TypeScript definitions.
+ * This class is responsible for transposing data types into TypeScript definitions.
  */
 class TypeScriptWriter implements WriterContract
 {
