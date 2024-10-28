@@ -16,7 +16,7 @@ class TransposeServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('type-generator')
+            ->name('transpose')
             ->hasConfigFile()
             ->hasCommand(TransposeCommand::class);
     }

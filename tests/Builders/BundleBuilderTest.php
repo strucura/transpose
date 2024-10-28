@@ -1,9 +1,9 @@
 <?php
 
 use Spatie\StructureDiscoverer\DiscoverConditions\DiscoverCondition;
-use Strucura\TypeGenerator\Builders\BundleBuilder;
-use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
-use Strucura\TypeGenerator\Contracts\WriterContract;
+use Strucura\Transpose\Builders\BundleBuilder;
+use Strucura\Transpose\Contracts\DataTypeTransformerContract;
+use Strucura\Transpose\Contracts\WriterContract;
 
 it('initializes correctly', function () {
     $builder = BundleBuilder::make();

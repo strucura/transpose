@@ -1,8 +1,8 @@
 <?php
 
-// tests/PrimitiveObjectPropertyTypeEnumTest.php
+// tests/PrimitiveEnumTest.php
 
-use Strucura\TypeGenerator\Enums\PrimitivesEnum;
+use Strucura\Transpose\Enums\PrimitivesEnum;
 
 it('returns Integer for integer types', function () {
     expect(PrimitivesEnum::tryFromDatabaseColumnType('bigint'))->toBe(PrimitivesEnum::Integer)

@@ -1,8 +1,8 @@
 <?php
 
-use Strucura\TypeGenerator\Abstracts\AbstractProperty;
-use Strucura\TypeGenerator\Contracts\PropertyContract;
-use Strucura\TypeGenerator\Properties\InlineEnumProperty;
+use Strucura\Transpose\Abstracts\AbstractProperty;
+use Strucura\Transpose\Contracts\PropertyContract;
+use Strucura\Transpose\Properties\InlineEnumProperty;
 
 it('initializes properties correctly', function () {
     $name = 'status';

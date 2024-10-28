@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToProperties;
-use Strucura\TypeGenerator\Enums\PrimitivesEnum;
-use Strucura\TypeGenerator\Properties\InlineEnumProperty;
-use Strucura\TypeGenerator\Properties\PrimitiveProperty;
+use Strucura\Transpose\Concerns\ConvertsTableDefinitionToProperties;
+use Strucura\Transpose\Enums\PrimitivesEnum;
+use Strucura\Transpose\Properties\InlineEnumProperty;
+use Strucura\Transpose\Properties\PrimitiveProperty;
 
 beforeEach(function () {
     $this->traitInstance = new class

@@ -1,7 +1,7 @@
 <?php
 
-use Strucura\TypeGenerator\DataTypes\BackedEnumDataType;
-use Strucura\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
+use Strucura\Transpose\DataTypes\BackedEnumDataType;
+use Strucura\Transpose\Transformers\BackedEnumDataTypeTransformer;
 
 enum SampleEnum: string
 {

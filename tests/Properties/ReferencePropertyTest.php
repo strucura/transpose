@@ -1,8 +1,8 @@
 <?php
 
-use Strucura\TypeGenerator\Abstracts\AbstractProperty;
-use Strucura\TypeGenerator\Contracts\PropertyContract;
-use Strucura\TypeGenerator\Properties\ReferenceProperty;
+use Strucura\Transpose\Abstracts\AbstractProperty;
+use Strucura\Transpose\Contracts\PropertyContract;
+use Strucura\Transpose\Properties\ReferenceProperty;
 
 it('initializes properties correctly', function () {
     $name = 'items';
