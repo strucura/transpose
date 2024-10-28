@@ -14,7 +14,7 @@ use Strucura\TypeGenerator\ObjectProperties\PrimitiveObjectProperty;
 trait ConvertsTableDefinitionToObjectProperties
 {
     /**
-     * Derives the type of an object property using the database schema.
+     * Derives the object property using the database schema.
      *
      * @param  string  $objectPropertyName  The name of the object property.
      * @param  string  $modelFQCN  The fully qualified class name of the model.
