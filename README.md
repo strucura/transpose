@@ -1,18 +1,21 @@
-# Type Generator
+# Transpose
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/strucura/type-generator.svg?style=flat-square)](https://packagist.org/packages/strucura/type-generator)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/strucura/type-generator/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/strucura/type-generator/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/strucura/type-generator/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/strucura/type-generator/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/strucura/type-generator.svg?style=flat-square)](https://packagist.org/packages/strucura/type-generator)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/strucura/transpose.svg?style=flat-square)]
+(https://packagist.org/packages/strucura/transpose)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/strucura/transpose/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/strucura/transpose/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/strucura/transpose/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/strucura/transpose/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/strucura/transpose.svg?style=flat-square)](https://packagist.org/packages/strucura/transpose)
 
-Type Generator is a package designed to streamline the creation of types for your Laravel application across different languages by introducing standardized data types, which can then be consumed by a writer of your choice.
+Transpose is a package designed to streamline the creation of types for your Laravel application across different 
+languages 
+by introducing standardized data types, which can then be consumed by a writer of your choice.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require strucura/type-generator
+composer require strucura/transpose
 ```
 
 ## Configuration:
@@ -20,22 +23,23 @@ composer require strucura/type-generator
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="type-generator-config"
+php artisan vendor:publish --tag="transpose-config"
 ```
 
 ### Registering Bundles
 
-To register a bundle, you need to define it in the `type-generator.php` configuration file. A bundle consists of discovery paths, discovery conditions, transformers, and a writer.
+To register a bundle, you need to define it in the `transpose.php` configuration file. A bundle consists of discovery 
+paths, discovery conditions, transformers, and a writer.
 
 Example configuration:
 
 ```php
 use Illuminate\Http\Resources\Json\JsonResource;
 use Spatie\StructureDiscoverer\Support\Conditions\ConditionBuilder;
-use Strucura\TypeGenerator\Builders\BundleBuilder;
-use Strucura\TypeGenerator\Transformers\BackedEnumDataTypeTransformer;
-use Strucura\TypeGenerator\Transformers\JsonResourceDataTypeTransformer;
-use Strucura\TypeGenerator\Writers\TypeScriptWriter;
+use Strucura\Transpose\Builders\BundleBuilder;
+use Strucura\Transpose\Transformers\BackedEnumDataTypeTransformer;
+use Strucura\Transpose\Transformers\JsonResourceDataTypeTransformer;
+use Strucura\Transpose\Writers\TypeScriptWriter;
 
 return [
     'bundles' => [
@@ -76,9 +80,9 @@ php artisan types:generate {bundle} // php artisan types:generate typescript
 The `DefineObjectProperties` attribute allows developers to manually assign properties to an object for edge cases where automated property assignment is not possible.
 
 ```php
-use Strucura\TypeGenerator\Attributes\DefineProperties;
-use Strucura\TypeGenerator\Properties\PrimitiveProperty;
-use Strucura\TypeGenerator\Enums\PrimitivesEnum;
+use Strucura\Transpose\Attributes\DefineProperties;
+use Strucura\Transpose\Properties\PrimitiveProperty;
+use Strucura\Transpose\Enums\PrimitivesEnum;
 
 #[DefineProperties([
     new PrimitiveProperty('property1', PrimitivesEnum::String),
@@ -95,7 +99,7 @@ class MyClass
 The `DeriveObjectPropertiesFromModel` attribute allows developers to derive properties from a model.
 
 ```php
-use Strucura\TypeGenerator\Attributes\DerivePropertiesFromModel;
+use Strucura\Transpose\Attributes\DerivePropertiesFromModel;
 
 #[DerivePropertiesFromModel(MyModel::class)]
 class MyClass

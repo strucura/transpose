@@ -1,9 +1,9 @@
 <?php
 
-namespace Strucura\TypeGenerator\DataTypes;
+namespace Strucura\Transpose\DataTypes;
 
-use Strucura\TypeGenerator\Contracts\DataTypeContract;
-use Strucura\TypeGenerator\Contracts\PropertyContract;
+use Strucura\Transpose\Contracts\DataTypeContract;
+use Strucura\Transpose\Contracts\PropertyContract;
 
 class ObjectDataType implements DataTypeContract
 {

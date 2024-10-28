@@ -1,6 +1,6 @@
 <?php
 
-namespace Strucura\TypeGenerator\Attributes;
+namespace Strucura\Transpose\Attributes;
 
 use Attribute;
 

@@ -1,5 +1,5 @@
 <?php
 
-use Strucura\TypeGenerator\Tests\TestCase;
+use Strucura\Transpose\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

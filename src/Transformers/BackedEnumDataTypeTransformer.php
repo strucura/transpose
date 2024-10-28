@@ -1,12 +1,12 @@
 <?php
 
-namespace Strucura\TypeGenerator\Transformers;
+namespace Strucura\Transpose\Transformers;
 
 use BackedEnum;
 use Illuminate\Support\Str;
 use ReflectionClass;
-use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
-use Strucura\TypeGenerator\DataTypes\BackedEnumDataType;
+use Strucura\Transpose\Contracts\DataTypeTransformerContract;
+use Strucura\Transpose\DataTypes\BackedEnumDataType;
 
 class BackedEnumDataTypeTransformer implements DataTypeTransformerContract
 {

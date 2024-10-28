@@ -1,5 +1,5 @@
 <?php
 
-namespace Strucura\TypeGenerator\Contracts;
+namespace Strucura\Transpose\Contracts;
 
 interface DataTypeContract {}

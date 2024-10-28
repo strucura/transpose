@@ -1,6 +1,6 @@
 <?php
 
-namespace Strucura\TypeGenerator\Enums;
+namespace Strucura\Transpose\Enums;
 
 enum PrimitivesEnum: string
 {

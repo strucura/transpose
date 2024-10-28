@@ -1,11 +1,11 @@
 <?php
 
-namespace Strucura\TypeGenerator\Properties;
+namespace Strucura\Transpose\Properties;
 
 use Spatie\Macroable\Macroable;
-use Strucura\TypeGenerator\Abstracts\AbstractProperty;
-use Strucura\TypeGenerator\Contracts\PropertyContract;
-use Strucura\TypeGenerator\Enums\PrimitivesEnum;
+use Strucura\Transpose\Abstracts\AbstractProperty;
+use Strucura\Transpose\Contracts\PropertyContract;
+use Strucura\Transpose\Enums\PrimitivesEnum;
 
 class PrimitiveProperty extends AbstractProperty implements PropertyContract
 {

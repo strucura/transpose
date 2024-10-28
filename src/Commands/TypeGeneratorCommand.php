@@ -1,19 +1,19 @@
 <?php
 
-namespace Strucura\TypeGenerator\Commands;
+namespace Strucura\Transpose\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use ReflectionException;
 use Spatie\StructureDiscoverer\Discover;
-use Strucura\TypeGenerator\Builders\BundleBuilder;
-use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
+use Strucura\Transpose\Builders\BundleBuilder;
+use Strucura\Transpose\Contracts\DataTypeTransformerContract;
 
 /**
  * Command to generate type definitions for discovered classes into a language of choice.
  */
-class TypeGeneratorCommand extends Command
+class TransposeCommand extends Command
 {
     /**
      * The name and signature of the console command.

@@ -1,17 +1,17 @@
 <?php
 
-namespace Strucura\TypeGenerator\Writers;
+namespace Strucura\Transpose\Writers;
 
 use Exception;
 use Illuminate\Support\Collection;
-use Strucura\TypeGenerator\Abstracts\AbstractProperty;
-use Strucura\TypeGenerator\Contracts\WriterContract;
-use Strucura\TypeGenerator\DataTypes\BackedEnumDataType;
-use Strucura\TypeGenerator\DataTypes\ObjectDataType;
-use Strucura\TypeGenerator\Enums\PrimitivesEnum;
-use Strucura\TypeGenerator\Properties\InlineEnumProperty;
-use Strucura\TypeGenerator\Properties\PrimitiveProperty;
-use Strucura\TypeGenerator\Properties\ReferenceProperty;
+use Strucura\Transpose\Abstracts\AbstractProperty;
+use Strucura\Transpose\Contracts\WriterContract;
+use Strucura\Transpose\DataTypes\BackedEnumDataType;
+use Strucura\Transpose\DataTypes\ObjectDataType;
+use Strucura\Transpose\Enums\PrimitivesEnum;
+use Strucura\Transpose\Properties\InlineEnumProperty;
+use Strucura\Transpose\Properties\PrimitiveProperty;
+use Strucura\Transpose\Properties\ReferenceProperty;
 
 /**
  * Class TypeScriptWriter

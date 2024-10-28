@@ -1,18 +1,18 @@
 <?php
 
-namespace Strucura\TypeGenerator\Transformers;
+namespace Strucura\Transpose\Transformers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 use ReflectionClass;
 use ReflectionException;
-use Strucura\TypeGenerator\Attributes\DefineProperties;
-use Strucura\TypeGenerator\Attributes\DerivePropertiesFromModel;
-use Strucura\TypeGenerator\Concerns\ConvertsTableDefinitionToProperties;
-use Strucura\TypeGenerator\Contracts\DataTypeTransformerContract;
-use Strucura\TypeGenerator\DataTypes\ObjectDataType;
-use Strucura\TypeGenerator\Properties\ReferenceProperty;
+use Strucura\Transpose\Attributes\DefineProperties;
+use Strucura\Transpose\Attributes\DerivePropertiesFromModel;
+use Strucura\Transpose\Concerns\ConvertsTableDefinitionToProperties;
+use Strucura\Transpose\Contracts\DataTypeTransformerContract;
+use Strucura\Transpose\DataTypes\ObjectDataType;
+use Strucura\Transpose\Properties\ReferenceProperty;
 
 /**
  * Transforms Laravel JsonResource classes into standardized ObjectDataType instances.

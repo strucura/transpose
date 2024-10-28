@@ -1,6 +1,6 @@
 <?php
 
-namespace Strucura\TypeGenerator\Contracts;
+namespace Strucura\Transpose\Contracts;
 
 use Illuminate\Support\Collection;
 

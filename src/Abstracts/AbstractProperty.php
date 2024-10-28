@@ -1,9 +1,9 @@
 <?php
 
-namespace Strucura\TypeGenerator\Abstracts;
+namespace Strucura\Transpose\Abstracts;
 
 use Illuminate\Support\Traits\Conditionable;
-use Strucura\TypeGenerator\Contracts\PropertyContract;
+use Strucura\Transpose\Contracts\PropertyContract;
 
 abstract class AbstractProperty implements PropertyContract
 {

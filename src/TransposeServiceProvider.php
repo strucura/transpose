@@ -1,12 +1,12 @@
 <?php
 
-namespace Strucura\TypeGenerator;
+namespace Strucura\Transpose;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Strucura\TypeGenerator\Commands\TypeGeneratorCommand;
+use Strucura\Transpose\Commands\TransposeCommand;
 
-class TypeGeneratorServiceProvider extends PackageServiceProvider
+class TransposeServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -18,6 +18,6 @@ class TypeGeneratorServiceProvider extends PackageServiceProvider
         $package
             ->name('type-generator')
             ->hasConfigFile()
-            ->hasCommand(TypeGeneratorCommand::class);
+            ->hasCommand(TransposeCommand::class);
     }
 }

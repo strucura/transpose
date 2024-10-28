@@ -1,10 +1,10 @@
 <?php
 
-namespace Strucura\TypeGenerator\Tests;
+namespace Strucura\Transpose\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Strucura\TypeGenerator\TypeGeneratorServiceProvider;
+use Strucura\Transpose\TransposeServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,14 +13,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Strucura\\TypeGenerator\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Strucura\\Transpose\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            TypeGeneratorServiceProvider::class,
+            TransposeServiceProvider::class,
         ];
     }
 

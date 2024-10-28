@@ -1,12 +1,13 @@
 {
-    "name": "strucura/type-generator",
-    "description": "Handles the conversion of data structures to TypeScript, with the ability to incorporate other languages.",
+    "name": "strucura/transpose",
+    "description": "Handles the transposition of data structures to TypeScript, with the ability to incorporate other languages.",
     "keywords": [
         "strucura",
         "laravel",
-        "type-generator"
+        "transpose",
+        "typescript"
     ],
-    "homepage": "https://github.com/strucura/type-generator",
+    "homepage": "https://github.com/strucura/transpose",
     "license": "MIT",
     "authors": [
         {
@@ -35,13 +36,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Strucura\\TypeGenerator\\": "src/",
-            "Strucura\\TypeGenerator\\Database\\Factories\\": "database/factories/"
+            "Strucura\\Transpose\\": "src/",
+            "Strucura\\Transpose\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Strucura\\TypeGenerator\\Tests\\": "tests/"
+            "Strucura\\Transpose\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -60,11 +61,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Strucura\\TypeGenerator\\TypeGeneratorServiceProvider"
-            ],
-            "aliases": {
-                "TypeGenerator": "Strucura\\TypeGenerator\\Facades\\TypeGenerator"
-            }
+                "Strucura\\Transpose\\TransposeServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",

@@ -1,15 +1,15 @@
 <?php
 
-namespace Strucura\TypeGenerator\Concerns;
+namespace Strucura\Transpose\Concerns;
 
 use Exception;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use ReflectionMethod;
-use Strucura\TypeGenerator\Abstracts\AbstractProperty;
-use Strucura\TypeGenerator\Enums\PrimitivesEnum;
-use Strucura\TypeGenerator\Properties\InlineEnumProperty;
-use Strucura\TypeGenerator\Properties\PrimitiveProperty;
+use Strucura\Transpose\Abstracts\AbstractProperty;
+use Strucura\Transpose\Enums\PrimitivesEnum;
+use Strucura\Transpose\Properties\InlineEnumProperty;
+use Strucura\Transpose\Properties\PrimitiveProperty;
 
 trait ConvertsTableDefinitionToProperties
 {

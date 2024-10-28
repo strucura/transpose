@@ -1,8 +1,8 @@
 <?php
 
-namespace Strucura\TypeGenerator\DataTypes;
+namespace Strucura\Transpose\DataTypes;
 
-use Strucura\TypeGenerator\Contracts\DataTypeContract;
+use Strucura\Transpose\Contracts\DataTypeContract;
 
 class BackedEnumDataType implements DataTypeContract
 {
