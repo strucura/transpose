@@ -43,7 +43,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
      */
     public function transform(ReflectionClass $class): ObjectDataType
     {
-        $this->setObjectName($class->getShortName());
+        $this->setObjectName($class);
 
         // Derive object properties from the model if the attribute is present.
         if (! empty($class->getAttributes(DerivePropertiesFromModel::class))) {
@@ -79,7 +79,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
         foreach ($resourceProperties as $resourcePropertyKey => $resourceProperty) {
             $property = match (true) {
-                $resourceProperty instanceof AnonymousResourceCollection => ReferenceProperty::make($resourcePropertyKey, $resourceProperty->collects)
+                $resourceProperty instanceof AnonymousResourceCollection => ReferenceProperty::make($resourcePropertyKey, class_basename($resourceProperty->collects))
                     ->isArrayOf()
                     ->isNullable(),
                 $resourceProperty instanceof JsonResource => ReferenceProperty::make($resourcePropertyKey, class_basename($resourceProperty))
