@@ -50,7 +50,7 @@ class TransposeCommand extends Command
     {
         $choices = collect($transpositions)->pluck('name')->toArray();
 
-        $transpositionName =  empty($this->argument('transposition'))
+        $transpositionName = empty($this->argument('transposition'))
             ? $this->choice('Select transposition', $choices, 0)
             : $this->argument('transposition');
 
