@@ -43,7 +43,7 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
      */
     public function transform(ReflectionClass $class): ObjectDataType
     {
-        $this->setObjectName($class);
+        $this->setObjectName($class->getShortName());
 
         // Derive object properties from the model if the attribute is present.
         if (! empty($class->getAttributes(DerivePropertiesFromModel::class))) {
