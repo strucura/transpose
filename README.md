@@ -69,7 +69,7 @@ For more information on discovery conditions, please refer to the [php-structure
 Transformers take concepts within your application like ENUMs and JsonResources and map them to a standardized set of data types. From there, a writer will be utilized to handle writing your language-specific conversion of those data types. There are several default writers and transformers included by default that will handle conversions of Laravel JSON Resources as well as Backed ENUMS to TypeScript. You can generate your types with:
 
 ```bash
-php artisan types:generate {bundle} // php artisan types:generate typescript
+php artisan transpose {transposition} // php artisan transpose TypeScript
 ```
 
 ## Attributes
@@ -93,9 +93,9 @@ class MyClass
 }
 ```
 
-### DeriveObjectPropertiesFromModel
+### DerivePropertiesFromModel
 
-The `DeriveObjectPropertiesFromModel` attribute allows developers to derive properties from a model.
+The `DerivePropertiesFromModel` attribute allows developers to derive properties from a model.
 
 ```php
 use Strucura\Transpose\Attributes\DerivePropertiesFromModel;
