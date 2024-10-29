@@ -3,11 +3,12 @@
 namespace Strucura\Transpose\Abstracts;
 
 use Illuminate\Support\Traits\Conditionable;
+use Illuminate\Support\Traits\Macroable;
 use Strucura\Transpose\Contracts\PropertyContract;
 
 abstract class AbstractProperty implements PropertyContract
 {
-    use Conditionable;
+    use Conditionable, Macroable;
 
     public string $name;
 

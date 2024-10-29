@@ -20,7 +20,7 @@ class TransposeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'transpose {transposition}';
+    protected $signature = 'transpose {transposition?}';
 
     /**
      * The console command description.
@@ -37,15 +37,8 @@ class TransposeCommand extends Command
     public function handle(): void
     {
         $transpositionBuilders = config('transpose.transpositions');
-        $transpositionKey = $this->getTranspositionKey($transpositionBuilders);
+        $selectedTransposition = $this->getTransposition($transpositionBuilders);
 
-        if (! $this->isValidTransposition($transpositionBuilders, $transpositionKey)) {
-            $this->error('Invalid transposition selected');
-
-            return;
-        }
-
-        $selectedTransposition = $transpositionBuilders[$transpositionKey];
         $types = $this->discoverAndTransformTypes($selectedTransposition);
         $this->writeTypes($types, $selectedTransposition);
     }
@@ -53,19 +46,21 @@ class TransposeCommand extends Command
     /**
      * Get the key of the selected bundle.
      */
-    private function getTranspositionKey(array $transpositions): string
+    private function getTransposition(array $transpositions): TranspositionBuilder
     {
-        return empty($this->argument('transposition'))
-            ? $this->choice('Select transposition', array_keys($transpositions), 0)
-            : $this->argument('transposition');
-    }
+        $choices = collect($transpositions)->pluck('name')->toArray();
 
-    /**
-     * Check if the selected transposition is valid.
-     */
-    private function isValidTransposition(array $transpositionBuilders, string $transpositionKey): bool
-    {
-        return isset($transpositionBuilders[$transpositionKey]);
+        $transpositionName =  empty($this->argument('transposition'))
+            ? $this->choice('Select transposition', $choices, 0)
+            : $this->argument('transposition');
+
+        $chosenTransposition = collect($transpositions)->firstWhere('name', $transpositionName);
+
+        if (! $chosenTransposition) {
+            $this->error('Invalid transposition selected');
+        }
+
+        return $chosenTransposition;
     }
 
     /**
