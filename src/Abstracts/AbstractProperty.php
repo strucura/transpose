@@ -15,16 +15,6 @@ abstract class AbstractProperty implements PropertyContract
 
     public bool $isNullable = false;
 
-    final public function __construct(string $name)
-    {
-        $this->name = $name;
-    }
-
-    final public static function make(string $name): mixed
-    {
-        return new static($name);
-    }
-
     public function isArrayOf(): self
     {
         $this->isArrayOf = true;

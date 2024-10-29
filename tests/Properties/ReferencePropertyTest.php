@@ -8,7 +8,7 @@ it('initializes properties correctly', function () {
     $name = 'items';
     $reference = 'Item';
 
-    $property = ReferenceProperty::make($name)->references($reference)->isNullable()->isArrayOf();
+    $property = ReferenceProperty::make($name, $reference)->isNullable()->isArrayOf();
 
     expect($property->name)->toBe($name)
         ->and($property->reference)->toBe($reference)
@@ -17,13 +17,13 @@ it('initializes properties correctly', function () {
 });
 
 it('inherits from AbstractObjectProperty', function () {
-    $property = ReferenceProperty::make('items')->references('Item')->isNullable();
+    $property = ReferenceProperty::make('items', 'Item')->isNullable();
 
     expect($property)->toBeInstanceOf(AbstractProperty::class);
 });
 
 it('implements ObjectPropertyContract', function () {
-    $property = ReferenceProperty::make('items')->references('Item')->isNullable();
+    $property = ReferenceProperty::make('items', 'Item')->isNullable();
 
     expect($property)->toBeInstanceOf(PropertyContract::class);
 });

@@ -79,12 +79,10 @@ class JsonResourceDataTypeTransformer implements DataTypeTransformerContract
 
         foreach ($resourceProperties as $resourcePropertyKey => $resourceProperty) {
             $property = match (true) {
-                $resourceProperty instanceof AnonymousResourceCollection => ReferenceProperty::make($resourcePropertyKey)
-                    ->references($resourceProperty->collects)
+                $resourceProperty instanceof AnonymousResourceCollection => ReferenceProperty::make($resourcePropertyKey, $resourceProperty->collects)
                     ->isArrayOf()
                     ->isNullable(),
-                $resourceProperty instanceof JsonResource => ReferenceProperty::make($resourcePropertyKey)
-                    ->references(class_basename($resourceProperty))
+                $resourceProperty instanceof JsonResource => ReferenceProperty::make($resourcePropertyKey, class_basename($resourceProperty))
                     ->isNullable(),
                 default => $this->derivePropertyUsingDatabase($resourcePropertyKey, $modelFQCN),
             };

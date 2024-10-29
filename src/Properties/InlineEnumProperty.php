@@ -12,10 +12,14 @@ class InlineEnumProperty extends AbstractProperty implements PropertyContract
 
     public array $cases = [];
 
-    public function cases(array $cases = []): InlineEnumProperty
+    public function __construct(string $name, array $cases = [])
     {
+        $this->name = $name;
         $this->cases = $cases;
+    }
 
-        return $this;
+    final public static function make(string $name, array $cases = []): InlineEnumProperty
+    {
+        return new InlineEnumProperty($name, $cases);
     }
 }

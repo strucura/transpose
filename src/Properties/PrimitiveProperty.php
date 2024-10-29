@@ -13,10 +13,14 @@ class PrimitiveProperty extends AbstractProperty implements PropertyContract
 
     public PrimitivesEnum $primitive;
 
-    public function primitive(PrimitivesEnum $primitive): PrimitiveProperty
+    public function __construct(string $name, PrimitivesEnum $primitive)
     {
+        $this->name = $name;
         $this->primitive = $primitive;
+    }
 
-        return $this;
+    public static function make(string $name, PrimitivesEnum $primitive): PrimitiveProperty
+    {
+        return new PrimitiveProperty($name, $primitive);
     }
 }

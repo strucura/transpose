@@ -9,7 +9,7 @@ it('initializes properties correctly', function () {
     $name = 'age';
     $primitive = PrimitivesEnum::Integer;
 
-    $property = PrimitiveProperty::make($name)->primitive($primitive)->isNullable();
+    $property = PrimitiveProperty::make($name, $primitive)->isNullable();
 
     expect($property->name)->toBe($name)
         ->and($property->primitive)->toBe($primitive)
@@ -17,13 +17,13 @@ it('initializes properties correctly', function () {
 });
 
 it('inherits from AbstractObjectProperty', function () {
-    $property = PrimitiveProperty::make('age')->primitive(PrimitivesEnum::Integer)->isNullable();
+    $property = PrimitiveProperty::make('age', PrimitivesEnum::Integer)->isNullable();
 
     expect($property)->toBeInstanceOf(AbstractProperty::class);
 });
 
 it('implements ObjectPropertyContract', function () {
-    $property = PrimitiveProperty::make('age')->primitive(PrimitivesEnum::Integer)->isNullable();
+    $property = PrimitiveProperty::make('age', PrimitivesEnum::Integer)->isNullable();
 
     expect($property)->toBeInstanceOf(PropertyContract::class);
 });

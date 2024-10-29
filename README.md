@@ -41,8 +41,8 @@ use Strucura\Transpose\Transformers\JsonResourceDataTypeTransformer;
 use Strucura\Transpose\Writers\TypeScriptWriter;
 
 return [
-    'bundles' => [
-        'typescript' => TranspositionBuilder::make()
+    'transpositions' => [
+        TranspositionBuilder::make('TypeScript')
             ->discoveryPaths([
                 app_path(''),
             ])

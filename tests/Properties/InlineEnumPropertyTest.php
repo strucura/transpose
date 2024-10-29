@@ -8,7 +8,7 @@ it('initializes properties correctly', function () {
     $name = 'status';
     $cases = ['active', 'inactive'];
 
-    $property = InlineEnumProperty::make($name)->cases($cases)->isNullable();
+    $property = InlineEnumProperty::make($name, $cases)->isNullable();
 
     expect($property->name)->toBe($name)
         ->and($property->cases)->toBe($cases)
@@ -16,13 +16,13 @@ it('initializes properties correctly', function () {
 });
 
 it('inherits from AbstractObjectProperty', function () {
-    $property = InlineEnumProperty::make('status')->cases(['active', 'inactive'])->isNullable();
+    $property = InlineEnumProperty::make('status', ['active', 'inactive'])->isNullable();
 
     expect($property)->toBeInstanceOf(AbstractProperty::class);
 });
 
 it('implements ObjectPropertyContract', function () {
-    $property = InlineEnumProperty::make('status')->cases(['active', 'inactive'])->isNullable();
+    $property = InlineEnumProperty::make('status', ['active', 'inactive'])->isNullable();
 
     expect($property)->toBeInstanceOf(PropertyContract::class);
 });

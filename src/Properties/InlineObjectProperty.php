@@ -12,10 +12,14 @@ class InlineObjectProperty extends AbstractProperty implements PropertyContract
 
     public array $properties = [];
 
-    public function properties(array $properties = []): InlineObjectProperty
+    public function __construct(string $name, array $properties = [])
     {
+        $this->name = $name;
         $this->properties = $properties;
+    }
 
-        return $this;
+    public static function make(string $name, array $properties = []): InlineObjectProperty
+    {
+        return new self($name, $properties);
     }
 }

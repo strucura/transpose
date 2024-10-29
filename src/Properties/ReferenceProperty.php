@@ -12,10 +12,14 @@ class ReferenceProperty extends AbstractProperty implements PropertyContract
 
     public string $reference;
 
-    public function references(string $reference): ReferenceProperty
+    public function __construct(string $name, string $reference)
     {
+        $this->name = $name;
         $this->reference = $reference;
+    }
 
-        return $this;
+    public static function make(string $name, string $reference): ReferenceProperty
+    {
+        return new self($name, $reference);
     }
 }
