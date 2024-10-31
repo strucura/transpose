@@ -25,9 +25,11 @@ You can publish the config file with:
 php artisan vendor:publish --tag="transpose-config"
 ```
 
-### Registering Bundles
+### Registering Transpositions
 
-To register a bundle, you need to define it in the `transpose.php` configuration file. A bundle consists of discovery 
+To register a transposition, you need to define it in the `transpose.php` configuration file. A transposition 
+consists of 
+discovery 
 paths, discovery conditions, transformers, and a writer.
 
 Example configuration:
