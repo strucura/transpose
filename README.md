@@ -1,4 +1,4 @@
-# Transpose
+![](/assets/transpose.jpg)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/strucura/transpose.svg?style=flat-square)](https://packagist.org/packages/strucura/transpose)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/strucura/transpose/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/strucura/transpose/actions?query=workflow%3Arun-tests+branch%3Amaster)
